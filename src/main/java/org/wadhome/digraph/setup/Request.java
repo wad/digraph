@@ -8,6 +8,11 @@ import static org.wadhome.digraph.setup.Output.show;
 
 public enum Request {
 
+    ShowMenu(
+            "m",
+            "Show this menu",
+            Collections.emptyList()),
+
     ComputeTotalWeightOfSpecificRoute(
             "1",
             "Compute total weight of the specified route.",
@@ -39,6 +44,11 @@ public enum Request {
     LoadAndDisplay(
             "4",
             "Display the entire digraph in order.",
+            Collections.emptyList()),
+
+    Quit(
+            "q",
+            "Quit this experiment.",
             Collections.emptyList());
 
     final String description;
@@ -46,11 +56,11 @@ public enum Request {
     final List<Argument> arguments;
 
     Request(
-            String description,
             String menuIndicator,
+            String description,
             List<Argument> arguments) {
-        this.description = description;
         this.menuIndicator = menuIndicator;
+        this.description = description;
         this.arguments = arguments;
     }
 
@@ -77,6 +87,7 @@ public enum Request {
 
     public static void showMenu() {
         StringBuilder builder = new StringBuilder();
+        builder.append("\n█████████████████\n███ Main Menu ███\n█████████████████\n");
         for (Request request : values()) {
             builder.append(request.getMenuIndicator())
                     .append(": ")
@@ -84,9 +95,9 @@ public enum Request {
                     .append("\n");
             List<Argument> parameterNames = request.getArguments();
             if (!parameterNames.isEmpty()) {
-                builder.append("\tParameters:\n");
+                builder.append("\tParameters needed:\n");
                 for (Argument parameterName : parameterNames) {
-                    builder.append("\t")
+                    builder.append("\t\t")
                             .append(parameterName.getArgumentName())
                             .append("\n");
                 }

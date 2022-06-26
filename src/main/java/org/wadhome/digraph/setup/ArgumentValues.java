@@ -13,27 +13,24 @@ public class ArgumentValues {
 
     private final Map<Argument, String> valuesByArgument = new HashMap<>();
 
-    // The first one was the input file name, and the second one was the request.
-    private static final int START_INDEX_OF_ARGUMENTS_TO_INGEST = 2;
-
     public ArgumentValues(
             Request request,
-            String... argsFromCommandLine) {
+            List<String> argumentValues) {
 
         List<Argument> arguments = request.getArguments();
         int numExpectedArguments = arguments.size();
 
-        if (numExpectedArguments != argsFromCommandLine.length - START_INDEX_OF_ARGUMENTS_TO_INGEST) {
+        if (numExpectedArguments != argumentValues.size()) {
             show("Did not get the expected number of arguments for request " + request.getMenuIndicator() + ".");
             Request.showMenu();
             return;
         }
 
-        int argumentIndex = START_INDEX_OF_ARGUMENTS_TO_INGEST;
+        int argumentIndex = 0;
         for (Argument argument : arguments) {
             valuesByArgument.put(
                     argument,
-                    argsFromCommandLine[argumentIndex++]);
+                    argumentValues.get(argumentIndex++));
         }
     }
 

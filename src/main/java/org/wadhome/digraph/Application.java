@@ -8,6 +8,9 @@ import org.wadhome.digraph.setup.Request;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.wadhome.digraph.setup.Output.show;
 
@@ -55,7 +58,13 @@ public class Application {
             return;
         }
 
-        ArgumentValues argumentValues = new ArgumentValues(request, args);
+        // The first argument skipped is the input filename,
+        // and the second argument skipped is the request choice.
+        int numArgumentsToSkip = 2;
+        List<String> rawArguments = new ArrayList<>(
+                Arrays.asList(args).subList(numArgumentsToSkip, args.length));
+        ArgumentValues argumentValues = new ArgumentValues(request, rawArguments);
+
         digraphExperiment.answerRequest(request, argumentValues);
     }
 }
