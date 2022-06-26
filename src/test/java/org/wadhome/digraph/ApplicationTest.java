@@ -12,7 +12,7 @@ public class ApplicationTest {
         Application.main(new File("src/test/resources/sample.csv").getAbsolutePath());
         Assertions.assertEquals("""
                 Directed Graph Experiment
-                A:B5
+                A:B5,C77
                 B:C11
                 C:A3
                 X:X11
