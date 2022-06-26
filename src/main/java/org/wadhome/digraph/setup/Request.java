@@ -48,7 +48,7 @@ public enum Request {
 
     LoadAndDisplay(
             "4",
-            "Display the entire digraph.",
+            "Display the entire directed graph, with weights.",
             Collections.emptyList(),
             "Displaying the entire directed graph, in a consistent order, by source node:"),
 

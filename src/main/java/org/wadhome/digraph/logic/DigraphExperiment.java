@@ -5,15 +5,17 @@ import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.wadhome.digraph.setup.Argument.*;
 
 public class DigraphExperiment {
 
-    private final DirectedWeightedGraph directedWeightedGraph;
+    private final DirectedWeightedGraph graph;
 
     public DigraphExperiment(DirectedWeightedGraph directedWeightedGraph) {
-        this.directedWeightedGraph = directedWeightedGraph;
+        this.graph = directedWeightedGraph;
     }
 
     public Answer answerRequest(
@@ -21,7 +23,7 @@ public class DigraphExperiment {
             ArgumentValues argumentValues) {
         switch (request) {
             case LoadAndDisplay:
-                directedWeightedGraph.showAll();
+                graph.showAll();
                 return Answer.noAnswerExpected();
             case ComputeTotalWeightOfSpecificRoute:
                 return computeTotalWeightOfSpecificRoute(
@@ -45,10 +47,26 @@ public class DigraphExperiment {
         }
     }
 
-    Answer computeTotalWeightOfSpecificRoute(
-            List<Node> nodesInVisitOrder) {
-        // todo
-        return Answer.numeric(-1);
+    Answer computeTotalWeightOfSpecificRoute(List<Node> nodesInVisitOrder) {
+        Answer answer = Answer.numeric(0);
+        goToNextNode(nodesInVisitOrder, answer);
+        return answer;
+    }
+
+    void goToNextNode(
+            List<Node> remainingNodesToVisit,
+            Answer weightToGetHere) {
+
+        // Are we there yet?
+        if (remainingNodesToVisit.isEmpty()) {
+            return;
+        }
+
+        // Let's go to the next node then.
+
+        Node nextNodeToVisit = remainingNodesToVisit.get(0);
+        Map<Node, Set<Integer>> allPathsFromNode = graph.getAllPathsFromNode(nextNodeToVisit);
+        //todo
     }
 
     Answer computeNumPathsLimitedByVisitingNodes(

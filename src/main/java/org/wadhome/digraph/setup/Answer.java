@@ -29,6 +29,13 @@ public class Answer {
         return new Answer(false, false, numericAnswer);
     }
 
+    public void addToNumericResult(int valueToAdd) {
+        if (noAnswerExpected || noAnswerFound) {
+            throw new IllegalStateException("Expected to just have an integer here.");
+        }
+        numericResult += valueToAdd;
+    }
+
     @Override
     public String toString() {
 
