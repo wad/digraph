@@ -30,7 +30,7 @@ public class Application {
             return;
         }
 
-        DirectedWeightedGraph directedWeightedGraph = DirectedWeightedGraph.setupViaCommaDelimitedString(fileContent);
+        DirectedWeightedGraph directedWeightedGraph = new DirectedWeightedGraph(fileContent);
         DigraphExperiment digraphExperiment = new DigraphExperiment(directedWeightedGraph);
         digraphExperiment.performOperation(OperationRequest.LoadAndDisplay);
     }

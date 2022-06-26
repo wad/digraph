@@ -2,7 +2,7 @@ package org.wadhome.digraph;
 
 public class DigraphExperiment {
 
-    DirectedWeightedGraph directedWeightedGraph;
+    private final DirectedWeightedGraph directedWeightedGraph;
 
     public DigraphExperiment(DirectedWeightedGraph directedWeightedGraph) {
         this.directedWeightedGraph = directedWeightedGraph;

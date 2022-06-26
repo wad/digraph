@@ -6,18 +6,16 @@ import static org.wadhome.digraph.Application.show;
 
 public class DirectedWeightedGraph {
 
-    final Map<Node, Set<DestinationNodeWithWeight>> pathsByStartingNode = new HashMap<>();
+    private final Map<Node, Set<DestinationNodeWithWeight>> pathsByStartingNode = new HashMap<>();
 
-    public static DirectedWeightedGraph setupViaCommaDelimitedString(String commaDelimitedWeightedEdges) {
+    public DirectedWeightedGraph(String commaDelimitedWeightedEdges) {
         if (commaDelimitedWeightedEdges == null) {
             commaDelimitedWeightedEdges = "";
         }
 
-        DirectedWeightedGraph directedWeightedGraph = new DirectedWeightedGraph();
         Arrays.stream(commaDelimitedWeightedEdges.split(","))
                 .map(WeightedEdge::new)
-                .forEach(directedWeightedGraph::addWeightedEdge);
-        return directedWeightedGraph;
+                .forEach(this::addWeightedEdge);
     }
 
     public void addWeightedEdge(WeightedEdge weightedEdge) {
@@ -28,7 +26,7 @@ public class DirectedWeightedGraph {
                 .add(weightedEdge.getDestNodeWithWeight());
     }
 
-    // This just dumps the data to the screen.
+    // This just dumps the data to the screen, in a consistent order, so that test code can validate.
     public void showAll() {
         StringBuilder builder = new StringBuilder();
         List<Node> startingNodes = pathsByStartingNode
