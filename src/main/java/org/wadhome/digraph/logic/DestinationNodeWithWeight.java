@@ -1,4 +1,4 @@
-package org.wadhome.digraph;
+package org.wadhome.digraph.logic;
 
 public record DestinationNodeWithWeight(
         Node destinationNode,

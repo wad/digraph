@@ -1,14 +1,23 @@
 package org.wadhome.digraph;
 
+import org.wadhome.digraph.logic.DigraphExperiment;
+import org.wadhome.digraph.logic.DirectedWeightedGraph;
+import org.wadhome.digraph.setup.ArgumentValues;
+import org.wadhome.digraph.setup.Request;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.wadhome.digraph.setup.Output.show;
+
 public class Application {
 
-    static StringBuilder outputCache = new StringBuilder();
+    private static final int INDEX_OF_ARGUMENT_WITH_INPUT_FILENAME = 0;
+    private static final int INDEX_OF_ARGUMENT_WITH_REQUEST_MENU_CHOICE = 1;
 
     public static void main(String... args) {
+
         show("Directed Graph Experiment");
 
         if (args.length == 0) {
@@ -20,7 +29,7 @@ public class Application {
             return;
         }
 
-        String fileNameWithPath = args[0];
+        String fileNameWithPath = args[INDEX_OF_ARGUMENT_WITH_INPUT_FILENAME];
 
         String fileContent;
         try {
@@ -32,13 +41,21 @@ public class Application {
 
         DirectedWeightedGraph directedWeightedGraph = new DirectedWeightedGraph(fileContent);
         DigraphExperiment digraphExperiment = new DigraphExperiment(directedWeightedGraph);
-        digraphExperiment.performOperation(OperationRequest.LoadAndDisplay);
-    }
 
-    // Just consolidating all output here for convenience if we want to change it.
-    public static void show(String message) {
-        outputCache.append(message);
-        outputCache.append("\n");
-        System.out.println(message);
+        boolean isInteractiveMode = args.length == 1;
+        if (isInteractiveMode) {
+            digraphExperiment.enterInteractiveMode();
+            return;
+        }
+
+        String menuChoice = args[INDEX_OF_ARGUMENT_WITH_REQUEST_MENU_CHOICE];
+        Request request = Request.determineByMenuChoice(menuChoice);
+        if (request == null) {
+            show("Invalid request menu choice received: '" + menuChoice + "'.");
+            return;
+        }
+
+        ArgumentValues argumentValues = new ArgumentValues(request, args);
+        digraphExperiment.answerRequest(request, argumentValues);
     }
 }

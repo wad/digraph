@@ -1,4 +1,4 @@
-package org.wadhome.digraph;
+package org.wadhome.digraph.logic;
 
 // This class is actually only used when loading the weighted graph data into the program's internal representation.
 public class WeightedEdge {

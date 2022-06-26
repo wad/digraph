@@ -1,4 +1,4 @@
-package org.wadhome.digraph;
+package org.wadhome.digraph.logic;
 
 /**
  * @param name Slightly simpler to store the node name as a character,

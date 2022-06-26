@@ -1,8 +1,8 @@
-package org.wadhome.digraph;
+package org.wadhome.digraph.logic;
 
 import java.util.*;
 
-import static org.wadhome.digraph.Application.show;
+import static org.wadhome.digraph.setup.Output.show;
 
 public class DirectedWeightedGraph {
 
@@ -43,6 +43,6 @@ public class DirectedWeightedGraph {
                     .toList();
             builder.append(String.join(",", destinationNodeWithWeights)).append("\n");
         }
-        show(builder.toString());
+        show(builder.toString(), true);
     }
 }

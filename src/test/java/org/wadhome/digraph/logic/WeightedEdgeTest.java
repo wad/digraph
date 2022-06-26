@@ -1,7 +1,8 @@
-package org.wadhome.digraph;
+package org.wadhome.digraph.logic;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.wadhome.digraph.logic.WeightedEdge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
