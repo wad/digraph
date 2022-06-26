@@ -8,19 +8,19 @@ public class DirectedWeightedGraph {
 
     final Map<Node, Set<DestinationNodeWithWeight>> pathsByStartingNode = new HashMap<>();
 
-    public static DirectedWeightedGraph setupViaCommaDelimitedString(String commaDelimitedRoutes) {
-        if (commaDelimitedRoutes == null) {
-            commaDelimitedRoutes = "";
+    public static DirectedWeightedGraph setupViaCommaDelimitedString(String commaDelimitedWeightedEdges) {
+        if (commaDelimitedWeightedEdges == null) {
+            commaDelimitedWeightedEdges = "";
         }
 
         DirectedWeightedGraph directedWeightedGraph = new DirectedWeightedGraph();
-        Arrays.stream(commaDelimitedRoutes.split(","))
+        Arrays.stream(commaDelimitedWeightedEdges.split(","))
                 .map(WeightedEdge::new)
-                .forEach(directedWeightedGraph::addRoute);
+                .forEach(directedWeightedGraph::addWeightedEdge);
         return directedWeightedGraph;
     }
 
-    public void addRoute(WeightedEdge weightedEdge) {
+    public void addWeightedEdge(WeightedEdge weightedEdge) {
         pathsByStartingNode
                 .computeIfAbsent(
                         weightedEdge.getSourceNode(),
