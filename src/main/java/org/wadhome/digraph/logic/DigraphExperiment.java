@@ -1,13 +1,12 @@
 package org.wadhome.digraph.logic;
 
+import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
-import org.wadhome.digraph.setup.UserInteractor;
 
 import java.util.List;
 
 import static org.wadhome.digraph.setup.Argument.*;
-import static org.wadhome.digraph.setup.Output.show;
 
 public class DigraphExperiment {
 
@@ -17,83 +16,61 @@ public class DigraphExperiment {
         this.directedWeightedGraph = directedWeightedGraph;
     }
 
-    public void enterInteractiveMode() {
-        while (true) {
-            Request request = UserInteractor.getRequest();
-            if (request == Request.Quit) {
-                show("Goodbye!");
-                return;
-            }
-            answerRequest(request, UserInteractor.requestArgumentValues(request));
-        }
-    }
-
-    public void answerRequest(
+    public Answer answerRequest(
             Request request,
             ArgumentValues argumentValues) {
         switch (request) {
-            case ShowMenu -> Request.showMenu();
-            case LoadAndDisplay -> showGraph();
-            case ComputeTotalWeightOfSpecificRoute -> computeTotalWeightOfSpecificRoute(
-                    argumentValues.getValueAsListOfNodes(ListOfNodes));
-            case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes -> computeNumPathsLimitedByVisitingNodes(
-                    argumentValues.getValueAsNode(StartNodeName),
-                    argumentValues.getValueAsNode(EndNodeName),
-                    argumentValues.getValueAsInt(MaxNumNodesVisited));
-            case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight -> computeNumPathsLimitedByTotalWeight(
-                    argumentValues.getValueAsNode(StartNodeName),
-                    argumentValues.getValueAsNode(EndNodeName),
-                    argumentValues.getValueAsInt(MaxTotalWeight));
-            case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight -> computeRouteWithLeastTotalWeight(
-                    argumentValues.getValueAsNode(StartNodeName),
-                    argumentValues.getValueAsNode(EndNodeName));
-            default -> throw new IllegalStateException("Bug in code, unexpected value: " + request);
+            case LoadAndDisplay:
+                directedWeightedGraph.showAll();
+                return Answer.noAnswerExpected();
+            case ComputeTotalWeightOfSpecificRoute:
+                return computeTotalWeightOfSpecificRoute(
+                        argumentValues.getValueAsListOfNodes(ListOfNodes));
+            case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes:
+                return computeNumPathsLimitedByVisitingNodes(
+                        argumentValues.getValueAsNode(StartNodeName),
+                        argumentValues.getValueAsNode(EndNodeName),
+                        argumentValues.getValueAsInt(MaxNumNodesVisited));
+            case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight:
+                return computeNumPathsLimitedByTotalWeight(
+                        argumentValues.getValueAsNode(StartNodeName),
+                        argumentValues.getValueAsNode(EndNodeName),
+                        argumentValues.getValueAsInt(MaxTotalWeight));
+            case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight:
+                return computeRouteWithLeastTotalWeight(
+                        argumentValues.getValueAsNode(StartNodeName),
+                        argumentValues.getValueAsNode(EndNodeName));
+            default:
+                throw new IllegalStateException("Bug in code, unexpected value: " + request);
         }
     }
 
-    void showGraph() {
-        show("Displaying the entire directed graph, in a consistent order:");
-        directedWeightedGraph.showAll();
-    }
-
-    Integer computeTotalWeightOfSpecificRoute(
+    Answer computeTotalWeightOfSpecificRoute(
             List<Node> nodesInVisitOrder) {
         // todo
-        int answer = -1;
-        show("Total weight of the specified route:");
-        show(String.valueOf(answer), true);
-        return answer;
+        return Answer.numeric(-1);
     }
 
-    Integer computeNumPathsLimitedByVisitingNodes(
+    Answer computeNumPathsLimitedByVisitingNodes(
             Node startNode,
             Node endNode,
             int numVisitedNodes) {
         // todo
-        int answer = -1;
-        show("Number of paths, limited by a maximum number of visited nodes, between selected nodes:");
-        show(String.valueOf(answer), true);
-        return answer;
+        return Answer.numeric(-1);
     }
 
-    Integer computeNumPathsLimitedByTotalWeight(
+    Answer computeNumPathsLimitedByTotalWeight(
             Node startNode,
             Node endNode,
             int maxTotalWeight) {
         // todo
-        int answer = -1;
-        show("Number of paths, limited by a maximum total weight, between selected nodes:");
-        show(String.valueOf(answer), true);
-        return answer;
+        return Answer.numeric(-1);
     }
 
-    Integer computeRouteWithLeastTotalWeight(
+    Answer computeRouteWithLeastTotalWeight(
             Node startNode,
             Node endNode) {
         // todo
-        int answer = -1;
-        show("Total weight of the route with the least total weight between selected nodes:");
-        show(String.valueOf(answer), true);
-        return answer;
+        return Answer.numeric(-1);
     }
 }

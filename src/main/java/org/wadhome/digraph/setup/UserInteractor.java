@@ -1,5 +1,7 @@
 package org.wadhome.digraph.setup;
 
+import org.wadhome.digraph.logic.DigraphExperiment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +9,25 @@ import java.util.Scanner;
 import static org.wadhome.digraph.setup.Output.show;
 
 public class UserInteractor {
+
+    public static void interactiveMode(DigraphExperiment digraphExperiment) {
+        while (true) {
+            Request request = getRequest();
+            switch (request) {
+                case Quit -> {
+                    show("Goodbye!");
+                    return;
+                }
+                case ShowMenu -> Request.showMenu();
+                default -> {
+                    Answer answer = digraphExperiment.answerRequest(
+                            request,
+                            requestArgumentValues(request));
+                    show(answer.toString());
+                }
+            }
+        }
+    }
 
     public static Request getRequest() {
         while (true) {

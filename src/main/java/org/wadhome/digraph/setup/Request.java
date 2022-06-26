@@ -11,12 +11,14 @@ public enum Request {
     ShowMenu(
             "m",
             "Show this menu",
-            Collections.emptyList()),
+            Collections.emptyList(),
+            null),
 
     ComputeTotalWeightOfSpecificRoute(
             "1",
             "Compute total weight of the specified route.",
-            List.of(Argument.ListOfNodes)),
+            List.of(Argument.ListOfNodes),
+            "Total weight of the specified route:"),
 
     ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes(
             "2a",
@@ -24,7 +26,8 @@ public enum Request {
             Arrays.asList(
                     Argument.StartNodeName,
                     Argument.EndNodeName,
-                    Argument.MaxNumNodesVisited)),
+                    Argument.MaxNumNodesVisited),
+            "Number of paths, limited by a maximum number of visited nodes, between selected nodes:"),
 
     ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight(
             "2b",
@@ -32,36 +35,43 @@ public enum Request {
             Arrays.asList(
                     Argument.StartNodeName,
                     Argument.EndNodeName,
-                    Argument.MaxTotalWeight)),
+                    Argument.MaxTotalWeight),
+            "Number of paths, limited by a maximum total weight, between selected nodes:"),
 
     ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight(
             "3",
             "Compute total weight of the path between two nodes that has the least total weight.",
             Arrays.asList(
                     Argument.StartNodeName,
-                    Argument.EndNodeName)),
+                    Argument.EndNodeName),
+            "Total weight of the route with the least total weight between selected nodes:"),
 
     LoadAndDisplay(
             "4",
-            "Display the entire digraph in order.",
-            Collections.emptyList()),
+            "Display the entire digraph.",
+            Collections.emptyList(),
+            "Displaying the entire directed graph, in a consistent order, by source node:"),
 
     Quit(
             "q",
             "Quit this experiment.",
-            Collections.emptyList());
+            Collections.emptyList(),
+            null);
 
     final String description;
     final String menuIndicator;
     final List<Argument> arguments;
+    final String outputMessage;
 
     Request(
             String menuIndicator,
             String description,
-            List<Argument> arguments) {
+            List<Argument> arguments,
+            String outputMessage) {
         this.menuIndicator = menuIndicator;
         this.description = description;
         this.arguments = arguments;
+        this.outputMessage = outputMessage;
     }
 
     public String getDescription() {
@@ -74,6 +84,10 @@ public enum Request {
 
     public List<Argument> getArguments() {
         return arguments;
+    }
+
+    public String getOutputMessage() {
+        return outputMessage;
     }
 
     public static Request determineByMenuChoice(String menuChoice) {
