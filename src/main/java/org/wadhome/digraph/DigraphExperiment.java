@@ -12,7 +12,18 @@ public class DigraphExperiment {
         switch(operationRequest) {
             case LoadAndDisplay -> {
                 directedWeightedGraph.showAll();
-                break;
+            }
+            case ComputeTotalWeightOfSpecificRoute -> {
+                // todo
+            }
+            case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes -> {
+                // todo
+            }
+            case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight -> {
+                // todo
+            }
+            case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight -> {
+                // todo
             }
             default -> throw new IllegalStateException("Unexpected value: " + operationRequest);
         }

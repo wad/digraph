@@ -2,5 +2,10 @@ package org.wadhome.digraph;
 
 public enum OperationRequest {
 
-    LoadAndDisplay
+    LoadAndDisplay,
+    ComputeTotalWeightOfSpecificRoute,
+    ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes,
+    ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight,
+    ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight
+
 }
