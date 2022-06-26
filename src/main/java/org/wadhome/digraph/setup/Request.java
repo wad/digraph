@@ -11,9 +11,7 @@ public enum Request {
     ComputeTotalWeightOfSpecificRoute(
             "1",
             "Compute total weight of the specified route.",
-            Arrays.asList(
-                    Argument.StartNodeName,
-                    Argument.EndNodeName)),
+            List.of(Argument.ListOfNodes)),
 
     ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes(
             "2a",

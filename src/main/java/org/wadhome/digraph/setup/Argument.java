@@ -4,6 +4,7 @@ public enum Argument {
 
     StartNodeName("StartNodeName"),
     EndNodeName("EndNodeName"),
+    ListOfNodes("ListOfNodes"),
     MaxNumNodesVisited("MaxNumNodesVisited"),
     MaxTotalWeight("MaxTotalWeight");
 

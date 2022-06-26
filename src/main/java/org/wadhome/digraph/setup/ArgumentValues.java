@@ -1,5 +1,8 @@
 package org.wadhome.digraph.setup;
 
+import org.wadhome.digraph.logic.Node;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +37,16 @@ public class ArgumentValues {
         }
     }
 
-    public String getValueAsString(Argument argument) {
+    String getValueAsString(Argument argument) {
         String value = valuesByArgument.get(argument);
         if (value == null) {
             throw new RuntimeException("Missing expected argument value: " + argument.getArgumentName());
         }
         return value;
+    }
+
+    public Node getValueAsNode(Argument argument) {
+        return new Node(String.valueOf(getValueAsString(argument)));
     }
 
     public int getValueAsInt(Argument argument) {
@@ -51,5 +58,15 @@ public class ArgumentValues {
                     "Expected argument " + argument.getArgumentName() + " to have an integer value,"
                             + " but got '" + value + "' instead.");
         }
+    }
+
+    public List<Node> getValueAsListOfNodes(Argument argument) {
+        String value = getValueAsString(argument);
+
+        List<Node> nodes = new ArrayList<>();
+        for (int i = 0; i < value.length(); i++) {
+            nodes.add(new Node(String.valueOf(value.charAt(i))));
+        }
+        return nodes;
     }
 }

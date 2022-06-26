@@ -6,7 +6,7 @@ import static org.wadhome.digraph.setup.Output.show;
 
 public class DirectedWeightedGraph {
 
-    private final Map<Node, Set<DestinationNodeWithWeight>> pathsByStartingNode = new HashMap<>();
+    final Map<Node, Set<DestinationNodeWithWeight>> pathsByStartingNode = new HashMap<>();
 
     public DirectedWeightedGraph(String commaDelimitedWeightedEdges) {
         if (commaDelimitedWeightedEdges == null) {

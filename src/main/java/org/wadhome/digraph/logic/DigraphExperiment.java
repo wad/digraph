@@ -3,6 +3,8 @@ package org.wadhome.digraph.logic;
 import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
 
+import java.util.List;
+
 import static org.wadhome.digraph.setup.Argument.*;
 
 public class DigraphExperiment {
@@ -25,46 +27,48 @@ public class DigraphExperiment {
                 directedWeightedGraph.showAll();
             }
             case ComputeTotalWeightOfSpecificRoute -> computeTotalWeightOfSpecificRoute(
-                    new Node(argumentValues.getValueAsString(StartNodeName)),
-                    new Node(argumentValues.getValueAsString(EndNodeName)));
+                    argumentValues.getValueAsListOfNodes(ListOfNodes));
             case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes -> computeNumPathsLimitedByVisitingNodes(
-                    new Node(argumentValues.getValueAsString(StartNodeName)),
-                    new Node(argumentValues.getValueAsString(EndNodeName)),
+                    argumentValues.getValueAsNode(StartNodeName),
+                    argumentValues.getValueAsNode(EndNodeName),
                     argumentValues.getValueAsInt(MaxNumNodesVisited));
             case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight -> computeNumPathsLimitedByTotalWeight(
-                    new Node(argumentValues.getValueAsString(StartNodeName)),
-                    new Node(argumentValues.getValueAsString(EndNodeName)),
+                    argumentValues.getValueAsNode(StartNodeName),
+                    argumentValues.getValueAsNode(EndNodeName),
                     argumentValues.getValueAsInt(MaxTotalWeight));
             case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight -> computeRouteWithLeastTotalWeight(
-                    new Node(argumentValues.getValueAsString(StartNodeName)),
-                    new Node(argumentValues.getValueAsString(EndNodeName)));
-            default -> throw new IllegalStateException("Unexpected value: " + request);
+                    argumentValues.getValueAsNode(StartNodeName),
+                    argumentValues.getValueAsNode(EndNodeName));
+            default -> throw new IllegalStateException("Bug in code, unexpected value: " + request);
         }
     }
 
-    void computeTotalWeightOfSpecificRoute(
-            Node startNode,
-            Node endNode) {
+    int computeTotalWeightOfSpecificRoute(
+            List<Node> nodesInVisitOrder) {
         // todo
+        return -1;
     }
 
-    void computeNumPathsLimitedByVisitingNodes(
+    int computeNumPathsLimitedByVisitingNodes(
             Node startNode,
             Node endNode,
             int numVisitedNodes) {
         // todo
+        return -1;
     }
 
-    void computeNumPathsLimitedByTotalWeight(
+    int computeNumPathsLimitedByTotalWeight(
             Node startNode,
             Node endNode,
             int maxTotalWeight) {
         // todo
+        return -1;
     }
 
-    void computeRouteWithLeastTotalWeight(
+    int computeRouteWithLeastTotalWeight(
             Node startNode,
             Node endNode) {
         // todo
+        return -1;
     }
 }
