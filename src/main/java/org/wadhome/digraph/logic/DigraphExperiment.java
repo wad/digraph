@@ -4,6 +4,7 @@ import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,13 +57,16 @@ public class DigraphExperiment {
             List<Node> nodesInVisitOrder,
             boolean preferringLessWeightOptions) {
         Answer answer = Answer.numeric(0);
-        goToNextNode(nodesInVisitOrder, answer, preferringLessWeightOptions);
+        computeTotalWeightOfSpecificRouteHelper(
+                nodesInVisitOrder,
+                answer,
+                preferringLessWeightOptions);
         return answer;
     }
 
-    void goToNextNode(
+    void computeTotalWeightOfSpecificRouteHelper(
             List<Node> remainingNodesToVisit,
-            Answer weightToGetHere,
+            Answer answerSoFar,
             boolean preferringLessWeightOptions) {
 
         // If, for some reason, there is nothing, just return.
@@ -76,7 +80,7 @@ public class DigraphExperiment {
         // We need to make sure that the current node actually exists.
         // Need to consider nodes that only exist as destinations, not only sources.
         if (!graph.doesNodeExist(currentNode)) {
-            weightToGetHere.updateToNotFound();
+            answerSoFar.updateToNotFound();
             return;
         }
 
@@ -88,7 +92,7 @@ public class DigraphExperiment {
 
         // If this is a dead end, we can't go any further.
         if (allDestinationsFromCurrentNode == null) {
-            weightToGetHere.updateToNotFound();
+            answerSoFar.updateToNotFound();
             return;
         }
 
@@ -98,7 +102,7 @@ public class DigraphExperiment {
         Set<Integer> weightsAvailable = allDestinationsFromCurrentNode.get(nextNode);
         if (weightsAvailable == null) {
             // The next node isn't reachable directly from this node.
-            weightToGetHere.updateToNotFound();
+            answerSoFar.updateToNotFound();
             return;
         }
 
@@ -106,21 +110,71 @@ public class DigraphExperiment {
         int weightToNextNode = preferringLessWeightOptions
                 ? findSmallestWeight(weightsAvailable)
                 : findLargestWeight(weightsAvailable);
-        weightToGetHere.addToNumericResult(weightToNextNode);
+        answerSoFar.addToNumericResult(weightToNextNode);
 
         // Recursive call, let's do this again.
-        goToNextNode(
+        computeTotalWeightOfSpecificRouteHelper(
                 remainingNodesToVisit,
-                weightToGetHere,
+                answerSoFar,
                 preferringLessWeightOptions);
     }
 
     Answer computeNumPathsLimitedByVisitingNodes(
             Node startNode,
             Node endNode,
-            int numVisitedNodes) {
-        // todo
-        return Answer.numeric(-1);
+            int maxNumVisitedNodes) {
+        // Compute number of paths between two nodes, up to the specified maximum number of nodes visited.
+        // Do we consider AB4 and AB7 as different paths? No, the path is AB, so those are the same.
+
+        // If either the start or ending node doesn't exist, there are zero paths.
+        if (!graph.doesNodeExist(startNode) || !graph.doesNodeExist(endNode)) {
+            return Answer.numeric(0);
+        }
+
+        // If you can't visit any nodes, there are zero paths.
+        if (maxNumVisitedNodes <= 0) {
+            return Answer.numeric(0);
+        }
+
+        Set<String> pathsFound = new HashSet<>();
+        findAllPathsToDestinationFromThisNode(
+                startNode,
+                endNode,
+                pathsFound,
+                "",
+                maxNumVisitedNodes);
+        return Answer.numeric(pathsFound.size());
+    }
+
+    void findAllPathsToDestinationFromThisNode(
+            Node currentNode,
+            Node destinationNode,
+            Set<String> pathsFound,
+            String myPathSoFar,
+            int maxNumVisitedNodesRemaining) {
+
+        // Exit condition, we're out of visits to consider.
+        if (maxNumVisitedNodesRemaining <= 0) {
+            return;
+        }
+
+        Set<Node> nodesWeCanVisitNext = graph.getAllPathsFromNode(currentNode).keySet();
+        for (Node potentialNextNode : nodesWeCanVisitNext) {
+
+            // We found the destination node, we need to save this as a solution path!
+            if (potentialNextNode.equals(destinationNode)) {
+                pathsFound.add(myPathSoFar + potentialNextNode.name());
+                // Don't return, though, there may be more visits we can make, and come back here again later.
+            }
+
+            // Go wide, for each connected node, make a recursive call.
+            findAllPathsToDestinationFromThisNode(
+                    potentialNextNode,
+                    destinationNode,
+                    pathsFound,
+                    myPathSoFar + potentialNextNode.name(),
+                    maxNumVisitedNodesRemaining - 1);
+        }
     }
 
     Answer computeNumPathsLimitedByTotalWeight(

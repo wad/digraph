@@ -102,4 +102,22 @@ public class ComputeTotalWeightOfSpecificRouteTest {
         assertTrue(answer.getWasAnswerFound());
         assertEquals(18, answer.getNumericResult());
     }
+
+    @Test
+    public void testWithTightLoop() {
+        DigraphExperiment experiment = new DigraphExperiment(
+                new DirectedWeightedGraph("aa5,aa8"));
+
+        List<Node> nodesInVisitOrder = new ArrayList<>();
+        nodesInVisitOrder.add(new Node("a"));
+        nodesInVisitOrder.add(new Node("a"));
+        nodesInVisitOrder.add(new Node("a"));
+        nodesInVisitOrder.add(new Node("a"));
+        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+                nodesInVisitOrder,
+                true);
+        assertTrue(answer.getIsAnswerExpected());
+        assertTrue(answer.getWasAnswerFound());
+        assertEquals(15, answer.getNumericResult());
+    }
 }
