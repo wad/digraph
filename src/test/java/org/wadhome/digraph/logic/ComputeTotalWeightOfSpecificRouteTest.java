@@ -12,7 +12,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWithNoGraph() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -28,7 +28,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWithNoGraphAndNoNodesToVisit() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWhereThereTheStartingNodeDoesNotExist() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWhereThereIsNoRoute() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithPreferringMinimumWeight() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -88,7 +88,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithPreferringMaximumWeight() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -105,7 +105,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithTightLoop() {
-        ComputationLogic1 logic = new ComputationLogic1(
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
                 new DirectedWeightedGraph("aa5,aa8"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();

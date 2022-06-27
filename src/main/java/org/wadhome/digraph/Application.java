@@ -1,6 +1,6 @@
 package org.wadhome.digraph;
 
-import org.wadhome.digraph.logic.DigraphExperiment;
+import org.wadhome.digraph.logic.ComputationLogic;
 import org.wadhome.digraph.logic.DirectedWeightedGraph;
 import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
@@ -49,13 +49,12 @@ public class Application {
             return;
         }
 
-        DigraphExperiment digraphExperiment = new DigraphExperiment(
-                new DirectedWeightedGraph(fileContent));
+        DirectedWeightedGraph graph = new DirectedWeightedGraph(fileContent);
 
         // If the user calls this with just the input file as a parameter, let's give them an interactive experience.
         boolean isInteractiveMode = args.length == 1;
         if (isInteractiveMode) {
-            UserInteractor.interactiveMode(digraphExperiment);
+            UserInteractor.interactiveMode(graph);
             return;
         }
 
@@ -86,11 +85,12 @@ public class Application {
                         Arrays.asList(args).subList(numArgumentsToSkip, args.length));
 
                 show(request.getOutputMessage());
-                Answer answer = digraphExperiment.answerRequest(
+                Answer answer = ComputationLogic.answerRequest(
                         request,
                         new ArgumentValues(
                                 request,
-                                rawArguments));
+                                rawArguments),
+                        graph);
                 show(answer.toString(), true);
             }
         }
@@ -98,10 +98,10 @@ public class Application {
 
     static void showHelp() {
         show("""
-                    Supply the destinationNodeWithWeight and name of an input file
-                    which contains a comma-delimited list of source node name,
-                    destination node name, and edge weight.
-                    Sample content of the file: AB3,BC56,CA5""");
+                Supply the destinationNodeWithWeight and name of an input file
+                which contains a comma-delimited list of source node name,
+                destination node name, and edge weight.
+                Sample content of the file: AB3,BC56,CA5""");
         show(HELP_MESSAGE_FOR_NON_INTERACTIVE_MODE);
     }
 }

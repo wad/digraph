@@ -1,6 +1,7 @@
 package org.wadhome.digraph.setup;
 
-import org.wadhome.digraph.logic.DigraphExperiment;
+import org.wadhome.digraph.logic.ComputationLogic;
+import org.wadhome.digraph.logic.DirectedWeightedGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import static org.wadhome.digraph.setup.Output.show;
 
 public class UserInteractor {
 
-    public static void interactiveMode(DigraphExperiment digraphExperiment) {
+    public static void interactiveMode(DirectedWeightedGraph graph) {
         while (true) {
             Request request = getRequest();
             switch (request) {
@@ -20,9 +21,10 @@ public class UserInteractor {
                 }
                 case ShowMenu -> Request.showMenu();
                 default -> {
-                    Answer answer = digraphExperiment.answerRequest(
+                    Answer answer = ComputationLogic.answerRequest(
                             request,
-                            requestArgumentValues(request));
+                            requestArgumentValues(request),
+                            graph);
                     show(answer.toString());
                 }
             }

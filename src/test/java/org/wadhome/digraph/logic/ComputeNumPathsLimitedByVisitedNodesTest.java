@@ -9,7 +9,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testSimpleCase() {
-        ComputationLogic2 logic = new ComputationLogic2(
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -21,7 +21,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereNoVisitedNodes() {
-        ComputationLogic2 logic = new ComputationLogic2(
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -33,7 +33,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereDestinationNodeIsMissing() {
-        ComputationLogic2 logic = new ComputationLogic2(
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -45,7 +45,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereNoGraph() {
-        ComputationLogic2 logic = new ComputationLogic2(
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
                 new DirectedWeightedGraph(""));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -57,7 +57,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereThereIsJustOne() {
-        ComputationLogic2 logic = new ComputationLogic2(
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
                 new DirectedWeightedGraph("aa1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(

@@ -15,7 +15,7 @@ public class DigraphExperimentTest {
 
     @Test
     public void testComputeTotalWeightOfSpecificRoute() {
-        ComputationLogic1 logic = new ComputationLogic1(graph);
+        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(graph);
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("A"));
@@ -30,7 +30,7 @@ public class DigraphExperimentTest {
 
     @Test
     public void testComputeNumPathsLimitedByVisitingNodes() {
-        ComputationLogic2 logic = new ComputationLogic2(graph);
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(graph);
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("c"),
@@ -41,7 +41,7 @@ public class DigraphExperimentTest {
 
     @Test
     public void testComputeNumPathsLimitedByTotalWeight() {
-        ComputationLogic2 logic = new ComputationLogic2(graph);
+        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(graph);
 
         assertEquals(2, logic.computeNumPathsLimitedByTotalWeight(
                 new Node("c"),
@@ -51,7 +51,7 @@ public class DigraphExperimentTest {
 
     @Test
     public void testComputeRouteWithLeastTotalWeight() {
-        ComputationLogic3 logic = new ComputationLogic3(graph);
+        ComputationLogicForFindingOptimumPath logic = new ComputationLogicForFindingOptimumPath(graph);
 
         assertEquals(9, logic.computeRouteWithLeastTotalWeight(
                 new Node("a"),

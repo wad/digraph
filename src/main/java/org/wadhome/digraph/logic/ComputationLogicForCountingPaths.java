@@ -5,9 +5,13 @@ import org.wadhome.digraph.setup.Answer;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ComputationLogic2 extends ComputationLogic {
+/**
+ * The logic in this class is around computing the number of paths found from
+ * a starting node to an ending node, with various types of limits.
+ */
+public class ComputationLogicForCountingPaths extends ComputationLogic {
 
-    public ComputationLogic2(DirectedWeightedGraph graph) {
+    public ComputationLogicForCountingPaths(DirectedWeightedGraph graph) {
         super(graph);
     }
 

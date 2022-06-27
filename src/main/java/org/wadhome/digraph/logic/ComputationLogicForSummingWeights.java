@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ComputationLogic1 extends ComputationLogic {
+/**
+ * The logic in this class is around computing the total weights of a specific route
+ * through the graph.
+ */
+public class ComputationLogicForSummingWeights extends ComputationLogic {
 
-    public ComputationLogic1(DirectedWeightedGraph graph) {
+    public ComputationLogicForSummingWeights(DirectedWeightedGraph graph) {
         super(graph);
     }
 
