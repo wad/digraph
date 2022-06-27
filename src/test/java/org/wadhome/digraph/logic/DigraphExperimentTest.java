@@ -20,7 +20,11 @@ public class DigraphExperimentTest {
         nodesInVisitOrder.add(new Node("A"));
         nodesInVisitOrder.add(new Node("B"));
         nodesInVisitOrder.add(new Node("C"));
-        assertEquals(9, experiment.computeTotalWeightOfSpecificRoute(nodesInVisitOrder));
+        assertEquals(
+                9,
+                experiment.computeTotalWeightOfSpecificRoute(
+                        nodesInVisitOrder,
+                        true).getNumericResult());
     }
 
     @Test

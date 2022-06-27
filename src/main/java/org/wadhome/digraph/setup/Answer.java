@@ -1,6 +1,6 @@
 package org.wadhome.digraph.setup;
 
-public class Answer {
+public class Answer implements Comparable<Answer> {
 
     boolean noAnswerExpected;
     boolean noAnswerFound;
@@ -34,6 +34,52 @@ public class Answer {
             throw new IllegalStateException("Expected to just have an integer here.");
         }
         numericResult += valueToAdd;
+    }
+
+    public Integer getNumericResult() {
+        return this.numericResult;
+    }
+
+    public boolean getIsAnswerExpected() {
+        return !noAnswerExpected;
+    }
+
+    public boolean getWasAnswerFound() {
+        return !noAnswerFound;
+    }
+
+    public void updateToNotFound() {
+        noAnswerFound = true;
+    }
+
+    @Override
+    public int compareTo(Answer o) {
+
+        if (o == null) {
+            return 1;
+        }
+
+        if (this == o) {
+            return 0;
+        }
+
+        if (noAnswerExpected && o.noAnswerExpected) {
+            return 0;
+        }
+
+        if (noAnswerFound && o.noAnswerFound) {
+            return 0;
+        }
+
+        if (numericResult == null && o.numericResult == null) {
+            return 0;
+        }
+
+        if (numericResult == null) {
+            return -1;
+        }
+
+        return numericResult.compareTo(o.numericResult);
     }
 
     @Override

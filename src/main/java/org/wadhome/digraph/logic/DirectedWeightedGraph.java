@@ -15,12 +15,17 @@ public class DirectedWeightedGraph {
     // destination, and weight.
     final Map<Node, Map<Node, Set<Integer>>> pathsByStartingNode = new HashMap<>();
 
+    // We cannot use the keyset of the map to paths, because that may not include destination nodes.
+    final Set<Node> nodesThatExist = new HashSet<>();
+
     public DirectedWeightedGraph(String commaDelimitedWeightedEdges) {
         if (commaDelimitedWeightedEdges == null) {
             commaDelimitedWeightedEdges = "";
         }
 
         Arrays.stream(commaDelimitedWeightedEdges.split(","))
+                .map(String::trim)
+                .filter(s -> s.length() > 0)
                 .map(WeightedEdge::new)
                 .forEach(this::addWeightedEdge);
     }
@@ -31,6 +36,9 @@ public class DirectedWeightedGraph {
         Node destinationNode = weightedEdge.getDestNodeWithWeight().destinationNode();
         int weight = weightedEdge.getDestNodeWithWeight().weight();
 
+        nodesThatExist.add(sourceNode);
+        nodesThatExist.add(destinationNode);
+
         Map<Node, Set<Integer>> weightsByDestinationNode = pathsByStartingNode.computeIfAbsent(
                 sourceNode,
                 k -> new HashMap<>());
@@ -38,6 +46,10 @@ public class DirectedWeightedGraph {
                 destinationNode,
                 k -> new HashSet<>());
         weightsToThisDestination.add(weight);
+    }
+
+    public boolean doesNodeExist(Node node) {
+        return nodesThatExist.contains(node);
     }
 
     public Map<Node, Set<Integer>> getAllPathsFromNode(Node sourceNode) {

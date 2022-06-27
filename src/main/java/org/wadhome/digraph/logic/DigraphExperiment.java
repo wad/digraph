@@ -25,9 +25,14 @@ public class DigraphExperiment {
             case LoadAndDisplay:
                 graph.showAll();
                 return Answer.noAnswerExpected();
-            case ComputeTotalWeightOfSpecificRoute:
+            case ComputeTotalWeightOfSpecificRoutePreferringLessWeight:
                 return computeTotalWeightOfSpecificRoute(
-                        argumentValues.getValueAsListOfNodes(ListOfNodes));
+                        argumentValues.getValueAsListOfNodes(ListOfNodes),
+                        true);
+            case ComputeTotalWeightOfSpecificRoutePreferringMoreWeight:
+                return computeTotalWeightOfSpecificRoute(
+                        argumentValues.getValueAsListOfNodes(ListOfNodes),
+                        false);
             case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes:
                 return computeNumPathsLimitedByVisitingNodes(
                         argumentValues.getValueAsNode(StartNodeName),
@@ -47,26 +52,67 @@ public class DigraphExperiment {
         }
     }
 
-    Answer computeTotalWeightOfSpecificRoute(List<Node> nodesInVisitOrder) {
+    Answer computeTotalWeightOfSpecificRoute(
+            List<Node> nodesInVisitOrder,
+            boolean preferringLessWeightOptions) {
         Answer answer = Answer.numeric(0);
-        goToNextNode(nodesInVisitOrder, answer);
+        goToNextNode(nodesInVisitOrder, answer, preferringLessWeightOptions);
         return answer;
     }
 
     void goToNextNode(
             List<Node> remainingNodesToVisit,
-            Answer weightToGetHere) {
+            Answer weightToGetHere,
+            boolean preferringLessWeightOptions) {
 
-        // Are we there yet?
+        // If, for some reason, there is nothing, just return.
         if (remainingNodesToVisit.isEmpty()) {
             return;
         }
 
-        // Let's go to the next node then.
+        Node currentNode = remainingNodesToVisit.get(0);
+        Map<Node, Set<Integer>> allDestinationsFromCurrentNode = graph.getAllPathsFromNode(currentNode);
 
-        Node nextNodeToVisit = remainingNodesToVisit.get(0);
-        Map<Node, Set<Integer>> allPathsFromNode = graph.getAllPathsFromNode(nextNodeToVisit);
-        //todo
+        // We need to make sure that the current node actually exists.
+        // Need to consider nodes that only exist as destinations, not only sources.
+        if (!graph.doesNodeExist(currentNode)) {
+            weightToGetHere.updateToNotFound();
+            return;
+        }
+
+        boolean thisIsTheFinalNode = remainingNodesToVisit.size() == 1;
+        if (thisIsTheFinalNode) {
+            // We have arrived, and the weights in the answer are correct.
+            return;
+        }
+
+        // If this is a dead end, we can't go any further.
+        if (allDestinationsFromCurrentNode == null) {
+            weightToGetHere.updateToNotFound();
+            return;
+        }
+
+        // Now consider the next node to visit.
+        remainingNodesToVisit.remove(0);
+        Node nextNode = remainingNodesToVisit.get(0);
+        Set<Integer> weightsAvailable = allDestinationsFromCurrentNode.get(nextNode);
+        if (weightsAvailable == null) {
+            // The next node isn't reachable directly from this node.
+            weightToGetHere.updateToNotFound();
+            return;
+        }
+
+        // Add the weight to our sum.
+        int weightToNextNode = preferringLessWeightOptions
+                ? findSmallestWeight(weightsAvailable)
+                : findLargestWeight(weightsAvailable);
+        weightToGetHere.addToNumericResult(weightToNextNode);
+
+        // Recursive call, let's do this again.
+        goToNextNode(
+                remainingNodesToVisit,
+                weightToGetHere,
+                preferringLessWeightOptions);
     }
 
     Answer computeNumPathsLimitedByVisitingNodes(
@@ -90,5 +136,25 @@ public class DigraphExperiment {
             Node endNode) {
         // todo
         return Answer.numeric(-1);
+    }
+
+    int findSmallestWeight(Set<Integer> weights) {
+        int smallest = Integer.MAX_VALUE;
+        for (Integer weight : weights) {
+            if (weight < smallest) {
+                smallest = weight;
+            }
+        }
+        return smallest;
+    }
+
+    int findLargestWeight(Set<Integer> weights) {
+        int largest = -1;
+        for (Integer weight : weights) {
+            if (weight > largest) {
+                largest = weight;
+            }
+        }
+        return largest;
     }
 }

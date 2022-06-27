@@ -14,9 +14,15 @@ public enum Request {
             Collections.emptyList(),
             null),
 
-    ComputeTotalWeightOfSpecificRoute(
-            "1",
-            "Compute total weight of the specified route.",
+    ComputeTotalWeightOfSpecificRoutePreferringLessWeight(
+            "1a",
+            "Compute total weight of the specified route, preferring less-weight options.",
+            List.of(Argument.ListOfNodes),
+            "Total weight of the specified route:"),
+
+    ComputeTotalWeightOfSpecificRoutePreferringMoreWeight(
+            "1b",
+            "Compute total weight of the specified route, preferring more-weight options.",
             List.of(Argument.ListOfNodes),
             "Total weight of the specified route:"),
 
