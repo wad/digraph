@@ -6,21 +6,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WeightedEdgeTest {
+public class EdgeTest {
 
     @Test
     public void testWithValidInput() {
-        WeightedEdge weightedEdge = new WeightedEdge("ab33");
-        assertEquals("A", weightedEdge.getSourceNode().name());
-        assertEquals("B", weightedEdge.getDestinationNode().name());
-        assertEquals(33, weightedEdge.getWeight());
+        Edge edge = new Edge("ab33");
+        assertEquals("A", edge.getSourceNode().name());
+        assertEquals("B", edge.getDestinationNode().name());
+        assertEquals(33, edge.getWeight());
     }
 
     @Test
     public void testWithNull() {
         RuntimeException e = Assertions.assertThrows(
                 RuntimeException.class,
-                () -> new WeightedEdge(null));
+                () -> new Edge(null));
         assertTrue(e.getMessage().contains("null"));
     }
 
@@ -28,7 +28,7 @@ public class WeightedEdgeTest {
     public void testWithNotEnoughCharacters() {
         RuntimeException e = Assertions.assertThrows(
                 RuntimeException.class,
-                () -> new WeightedEdge(""));
+                () -> new Edge(""));
         assertTrue(e.getMessage().contains("should be more than 3 characters"));
     }
 
@@ -36,7 +36,7 @@ public class WeightedEdgeTest {
     public void testWithInvalidNodeNames() {
         RuntimeException e = Assertions.assertThrows(
                 RuntimeException.class,
-                () -> new WeightedEdge("a!3"));
+                () -> new Edge("a!3"));
         assertTrue(e.getMessage().contains("Only accepting A-Z as valid node names."));
     }
 
@@ -44,7 +44,7 @@ public class WeightedEdgeTest {
     public void testWithInvalidWeight() {
         RuntimeException e = Assertions.assertThrows(
                 RuntimeException.class,
-                () -> new WeightedEdge("abx"));
+                () -> new Edge("abx"));
         assertTrue(e.getMessage().contains("Invalid weight"));
     }
 }

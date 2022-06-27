@@ -8,7 +8,7 @@ import org.wadhome.digraph.setup.Answer;
  */
 public class ComputationLogicForFindingOptimumPath extends ComputationLogic {
 
-    public ComputationLogicForFindingOptimumPath(DirectedWeightedGraph graph) {
+    public ComputationLogicForFindingOptimumPath(Graph graph) {
         super(graph);
     }
 

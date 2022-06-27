@@ -1,7 +1,7 @@
 package org.wadhome.digraph.setup;
 
 import org.wadhome.digraph.logic.ComputationLogic;
-import org.wadhome.digraph.logic.DirectedWeightedGraph;
+import org.wadhome.digraph.logic.Graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import static org.wadhome.digraph.setup.Output.show;
 
 public class UserInteractor {
 
-    public static void interactiveMode(DirectedWeightedGraph graph) {
+    public static void interactiveMode(Graph graph) {
         while (true) {
             Request request = getRequest();
             switch (request) {

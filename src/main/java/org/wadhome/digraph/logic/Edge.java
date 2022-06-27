@@ -1,14 +1,14 @@
 package org.wadhome.digraph.logic;
 
 // This class is actually only used when loading the weighted graph data into the program's internal representation.
-public class WeightedEdge {
+public class Edge {
 
     final Node sourceNode;
     final Node destinationNode;
     final int weight;
 
     // This would be in the form of AB89 where the source node is A, the destination node is B, and the weight is 89.
-    public WeightedEdge(String weightedEdgeAsString) {
+    public Edge(String weightedEdgeAsString) {
         if (weightedEdgeAsString == null) {
             throw new RuntimeException("Got a null weighted edge string somehow, fix the bug.");
         }

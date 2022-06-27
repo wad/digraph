@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class ComputationLogicForSummingWeights extends ComputationLogic {
 
-    public ComputationLogicForSummingWeights(DirectedWeightedGraph graph) {
+    public ComputationLogicForSummingWeights(Graph graph) {
         super(graph);
     }
 

@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DirectedWeightedGraphTest {
+public class GraphTest {
 
     @Test
     public void testIgnoresDuplicateEntries() {
 
         Node nodeA = new Node("A");
         Node nodeB = new Node("B");
-        DirectedWeightedGraph graph = new DirectedWeightedGraph("ab1,ab1,ab1,ab2,ab2");
+        Graph graph = new Graph("ab1,ab1,ab1,ab2,ab2");
 
         assertEquals(
                 1,

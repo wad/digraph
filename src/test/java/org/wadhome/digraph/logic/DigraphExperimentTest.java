@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DigraphExperimentTest {
 
     static final String SAMPLE_DATA = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
-    DirectedWeightedGraph graph = new DirectedWeightedGraph(SAMPLE_DATA);
+    Graph graph = new Graph(SAMPLE_DATA);
 
     @Test
     public void testComputeTotalWeightOfSpecificRoute() {

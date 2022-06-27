@@ -8,12 +8,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComputeTotalWeightOfSpecificRouteTest {
+public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testCaseWithNoGraph() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph(""));
+                new Graph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("A"));
@@ -29,7 +29,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testCaseWithNoGraphAndNoNodesToVisit() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph(""));
+                new Graph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
@@ -43,7 +43,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testCaseWhereThereTheStartingNodeDoesNotExist() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph("ab1,bc2"));
+                new Graph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("z"));
@@ -57,7 +57,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testCaseWhereThereIsNoRoute() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph("ab1,bc2"));
+                new Graph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
@@ -72,7 +72,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testWithPreferringMinimumWeight() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
+                new Graph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
@@ -89,7 +89,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testWithPreferringMaximumWeight() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
+                new Graph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
@@ -106,7 +106,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
     @Test
     public void testWithTightLoop() {
         ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
-                new DirectedWeightedGraph("aa5,aa8"));
+                new Graph("aa5,aa8"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));

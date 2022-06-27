@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class ComputationLogicForCountingPaths extends ComputationLogic {
 
-    public ComputationLogicForCountingPaths(DirectedWeightedGraph graph) {
+    public ComputationLogicForCountingPaths(Graph graph) {
         super(graph);
     }
 

@@ -8,16 +8,16 @@ import static org.wadhome.digraph.setup.Argument.*;
 
 public abstract class ComputationLogic {
 
-    protected final DirectedWeightedGraph graph;
+    protected final Graph graph;
 
-    public ComputationLogic(DirectedWeightedGraph graph) {
+    public ComputationLogic(Graph graph) {
         this.graph = graph;
     }
 
     public static Answer answerRequest(
             Request request,
             ArgumentValues argumentValues,
-            DirectedWeightedGraph graph) {
+            Graph graph) {
         switch (request) {
             case LoadAndDisplay:
                 graph.showAll();

@@ -1,7 +1,7 @@
 package org.wadhome.digraph;
 
 import org.wadhome.digraph.logic.ComputationLogic;
-import org.wadhome.digraph.logic.DirectedWeightedGraph;
+import org.wadhome.digraph.logic.Graph;
 import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
@@ -49,7 +49,7 @@ public class Application {
             return;
         }
 
-        DirectedWeightedGraph graph = new DirectedWeightedGraph(fileContent);
+        Graph graph = new Graph(fileContent);
 
         // If the user calls this with just the input file as a parameter, let's give them an interactive experience.
         boolean isInteractiveMode = args.length == 1;

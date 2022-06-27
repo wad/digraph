@@ -5,12 +5,12 @@ import org.wadhome.digraph.setup.Answer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ComputeNumPathsLimitedByVisitedNodesTest {
+public class ComputationLogicForCountingPathsTest {
 
     @Test
     public void testSimpleCase() {
         ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
-                new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
+                new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
@@ -22,7 +22,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
     @Test
     public void testCaseWhereNoVisitedNodes() {
         ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
-                new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
+                new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
@@ -34,7 +34,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
     @Test
     public void testCaseWhereDestinationNodeIsMissing() {
         ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
-                new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
+                new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
@@ -46,7 +46,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
     @Test
     public void testCaseWhereNoGraph() {
         ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
-                new DirectedWeightedGraph(""));
+                new Graph(""));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
@@ -58,7 +58,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
     @Test
     public void testCaseWhereThereIsJustOne() {
         ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
-                new DirectedWeightedGraph("aa1"));
+                new Graph("aa1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),

@@ -4,7 +4,7 @@ import java.util.*;
 
 import static org.wadhome.digraph.setup.Output.show;
 
-public class DirectedWeightedGraph {
+public class Graph {
 
     // The outer key is a given starting node.
     // For each of those, there is a map of the paths leading from it.
@@ -18,7 +18,7 @@ public class DirectedWeightedGraph {
     // We cannot use the keyset of the map to paths, because that may not include destination nodes.
     final Set<Node> nodesThatExist = new HashSet<>();
 
-    public DirectedWeightedGraph(String commaDelimitedWeightedEdges) {
+    public Graph(String commaDelimitedWeightedEdges) {
         if (commaDelimitedWeightedEdges == null) {
             commaDelimitedWeightedEdges = "";
         }
@@ -26,15 +26,15 @@ public class DirectedWeightedGraph {
         Arrays.stream(commaDelimitedWeightedEdges.split(","))
                 .map(String::trim)
                 .filter(s -> s.length() > 0)
-                .map(WeightedEdge::new)
+                .map(Edge::new)
                 .forEach(this::addWeightedEdge);
     }
 
-    public void addWeightedEdge(WeightedEdge weightedEdge) {
+    public void addWeightedEdge(Edge edge) {
 
-        Node sourceNode = weightedEdge.getSourceNode();
-        Node destinationNode = weightedEdge.getDestinationNode();
-        int weight = weightedEdge.getWeight();
+        Node sourceNode = edge.getSourceNode();
+        Node destinationNode = edge.getDestinationNode();
+        int weight = edge.getWeight();
 
         nodesThatExist.add(sourceNode);
         nodesThatExist.add(destinationNode);
