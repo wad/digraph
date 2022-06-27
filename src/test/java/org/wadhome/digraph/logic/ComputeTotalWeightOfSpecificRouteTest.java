@@ -12,14 +12,14 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWithNoGraph() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("A"));
         nodesInVisitOrder.add(new Node("B"));
         nodesInVisitOrder.add(new Node("C"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());
@@ -28,11 +28,11 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWithNoGraphAndNoNodesToVisit() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());
@@ -42,12 +42,12 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWhereThereTheStartingNodeDoesNotExist() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("z"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());
@@ -56,13 +56,13 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testCaseWhereThereIsNoRoute() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
         nodesInVisitOrder.add(new Node("z"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());
@@ -71,14 +71,14 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithPreferringMinimumWeight() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
         nodesInVisitOrder.add(new Node("b"));
         nodesInVisitOrder.add(new Node("c"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());
@@ -88,14 +88,14 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithPreferringMaximumWeight() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("a"));
         nodesInVisitOrder.add(new Node("b"));
         nodesInVisitOrder.add(new Node("c"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 false);
         assertTrue(answer.getIsAnswerExpected());
@@ -105,7 +105,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
 
     @Test
     public void testWithTightLoop() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic1 logic = new ComputationLogic1(
                 new DirectedWeightedGraph("aa5,aa8"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ComputeTotalWeightOfSpecificRouteTest {
         nodesInVisitOrder.add(new Node("a"));
         nodesInVisitOrder.add(new Node("a"));
         nodesInVisitOrder.add(new Node("a"));
-        Answer answer = experiment.computeTotalWeightOfSpecificRoute(
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
                 nodesInVisitOrder,
                 true);
         assertTrue(answer.getIsAnswerExpected());

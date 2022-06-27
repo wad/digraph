@@ -9,10 +9,10 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testSimpleCase() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic2 logic = new ComputationLogic2(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
                 2);
@@ -21,10 +21,10 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereNoVisitedNodes() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic2 logic = new ComputationLogic2(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
                 0);
@@ -33,10 +33,10 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereDestinationNodeIsMissing() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic2 logic = new ComputationLogic2(
                 new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("c"),
                 10);
@@ -45,10 +45,10 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereNoGraph() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic2 logic = new ComputationLogic2(
                 new DirectedWeightedGraph(""));
 
-        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
                 3);
@@ -57,10 +57,10 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
 
     @Test
     public void testCaseWhereThereIsJustOne() {
-        DigraphExperiment experiment = new DigraphExperiment(
+        ComputationLogic2 logic = new ComputationLogic2(
                 new DirectedWeightedGraph("aa1"));
 
-        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("a"),
                 5);
