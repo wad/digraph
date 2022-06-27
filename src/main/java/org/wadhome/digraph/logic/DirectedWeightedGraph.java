@@ -33,8 +33,8 @@ public class DirectedWeightedGraph {
     public void addWeightedEdge(WeightedEdge weightedEdge) {
 
         Node sourceNode = weightedEdge.getSourceNode();
-        Node destinationNode = weightedEdge.getDestNodeWithWeight().destinationNode();
-        int weight = weightedEdge.getDestNodeWithWeight().weight();
+        Node destinationNode = weightedEdge.getDestinationNode();
+        int weight = weightedEdge.getWeight();
 
         nodesThatExist.add(sourceNode);
         nodesThatExist.add(destinationNode);

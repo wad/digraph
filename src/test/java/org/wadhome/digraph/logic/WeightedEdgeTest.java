@@ -2,7 +2,6 @@ package org.wadhome.digraph.logic;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.wadhome.digraph.logic.WeightedEdge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,8 +12,8 @@ public class WeightedEdgeTest {
     public void testWithValidInput() {
         WeightedEdge weightedEdge = new WeightedEdge("ab33");
         assertEquals("A", weightedEdge.getSourceNode().name());
-        assertEquals("B", weightedEdge.getDestNodeWithWeight().destinationNode().name());
-        assertEquals(33, weightedEdge.getDestNodeWithWeight().weight());
+        assertEquals("B", weightedEdge.getDestinationNode().name());
+        assertEquals(33, weightedEdge.getWeight());
     }
 
     @Test

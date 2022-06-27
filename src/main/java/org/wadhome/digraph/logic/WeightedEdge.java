@@ -4,7 +4,8 @@ package org.wadhome.digraph.logic;
 public class WeightedEdge {
 
     final Node sourceNode;
-    final DestinationNodeWithWeight destNodeWithWeight;
+    final Node destinationNode;
+    final int weight;
 
     // This would be in the form of AB89 where the source node is A, the destination node is B, and the weight is 89.
     public WeightedEdge(String weightedEdgeAsString) {
@@ -20,9 +21,8 @@ public class WeightedEdge {
         sourceNode = new Node(String.valueOf(weightedEdgeAsString.charAt(0)));
 
         try {
-            destNodeWithWeight = new DestinationNodeWithWeight(
-                    new Node(String.valueOf(weightedEdgeAsString.charAt(1))),
-                    Integer.parseInt(weightedEdgeAsString.substring(2)));
+            destinationNode = new Node(String.valueOf(weightedEdgeAsString.charAt(1)));
+            weight = Integer.parseInt(weightedEdgeAsString.substring(2));
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid weight found in weighted edge '" + weightedEdgeAsString + "'.", e);
         }
@@ -32,7 +32,11 @@ public class WeightedEdge {
         return sourceNode;
     }
 
-    public DestinationNodeWithWeight getDestNodeWithWeight() {
-        return destNodeWithWeight;
+    public Node getDestinationNode() {
+        return destinationNode;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }

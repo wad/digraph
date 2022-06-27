@@ -3,7 +3,7 @@ package org.wadhome.digraph.logic;
 /**
  * @param name Slightly simpler to store the node name as a character,
  *             to save a few bytes, but not as useful in the future.
- *             In real world situations, there will be more than only 26 nodes!
+ *             In real world situations, there would be more than only 26 nodes!
  */
 public record Node(String name) implements Comparable<Node> {
 
