@@ -5,6 +5,7 @@ public class Answer implements Comparable<Answer> {
     boolean noAnswerExpected;
     boolean noAnswerFound;
     Integer numericResult;
+    String comment = null;
 
     static final String MESSAGE_FOR_NO_ANSWER_FOUND = "NO SUCH ROUTE";
 
@@ -50,6 +51,14 @@ public class Answer implements Comparable<Answer> {
 
     public void updateToNotFound() {
         noAnswerFound = true;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment == null ? "" : comment;
     }
 
     @Override

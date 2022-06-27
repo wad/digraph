@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.wadhome.digraph.setup.Argument.*;
 
@@ -143,7 +144,9 @@ public class DigraphExperiment {
                 pathsFound,
                 "",
                 maxNumVisitedNodes);
-        return Answer.numeric(pathsFound.size());
+        Answer answer = Answer.numeric(pathsFound.size());
+        answer.setComment(String.join(",", pathsFound));
+        return answer;
     }
 
     void findAllPathsToDestinationFromThisNode(
