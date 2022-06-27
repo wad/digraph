@@ -35,7 +35,7 @@ public class DigraphExperimentTest {
         assertEquals(2, experiment.computeNumPathsLimitedByVisitingNodes(
                 new Node("c"),
                 new Node("c"),
-                3));
+                3).getNumericResult());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class DigraphExperimentTest {
         assertEquals(2, experiment.computeNumPathsLimitedByTotalWeight(
                 new Node("c"),
                 new Node("c"),
-                29));
+                29).getNumericResult());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class DigraphExperimentTest {
 
         assertEquals(9, experiment.computeRouteWithLeastTotalWeight(
                 new Node("a"),
-                new Node("c")));
+                new Node("c")).getNumericResult());
     }
 }
