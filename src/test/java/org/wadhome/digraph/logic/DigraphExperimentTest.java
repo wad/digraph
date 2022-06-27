@@ -1,6 +1,7 @@
 package org.wadhome.digraph.logic;
 
 import org.junit.jupiter.api.Test;
+import org.wadhome.digraph.setup.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,11 @@ public class DigraphExperimentTest {
         DirectedWeightedGraph graph = new DirectedWeightedGraph(SAMPLE_DATA);
         DigraphExperiment experiment = new DigraphExperiment(graph);
 
-        assertEquals(2, experiment.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
                 new Node("c"),
                 new Node("c"),
-                3).getNumericResult());
+                3);
+        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 
     @Test

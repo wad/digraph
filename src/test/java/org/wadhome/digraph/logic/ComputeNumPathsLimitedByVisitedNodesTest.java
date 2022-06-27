@@ -15,8 +15,8 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
         Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
-                1);
-        assertEquals(1, answer.getNumericResult());
+                2);
+        assertEquals(3, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
                 new Node("a"),
                 new Node("b"),
                 0);
-        assertEquals(0, answer.getNumericResult());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
                 new Node("a"),
                 new Node("c"),
                 10);
-        assertEquals(0, answer.getNumericResult());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 
     @Test
@@ -52,20 +52,18 @@ public class ComputeNumPathsLimitedByVisitedNodesTest {
                 new Node("a"),
                 new Node("b"),
                 3);
-        assertEquals(0, answer.getNumericResult());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 
     @Test
-    public void testMoreComplicatedCase() {
+    public void testCaseWhereThereIsJustOne() {
         DigraphExperiment experiment = new DigraphExperiment(
-                new DirectedWeightedGraph("aa1,ab1,ba1,bb1"));
+                new DirectedWeightedGraph("aa1"));
 
         Answer answer = experiment.computeNumPathsLimitedByVisitingNodes(
                 new Node("a"),
-                new Node("b"),
-                3);
-        // ab, aab, abb
-        System.out.println(answer.getComment());
-        assertEquals(3, answer.getNumericResult());
+                new Node("a"),
+                5);
+        assertEquals(5, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 }

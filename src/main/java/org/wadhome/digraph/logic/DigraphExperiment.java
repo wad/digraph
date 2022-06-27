@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.wadhome.digraph.setup.Argument.*;
 
@@ -132,18 +131,13 @@ public class DigraphExperiment {
             return Answer.numeric(0);
         }
 
-        // If you can't visit any nodes, there are zero paths.
-        if (maxNumVisitedNodes <= 0) {
-            return Answer.numeric(0);
-        }
-
         Set<String> pathsFound = new HashSet<>();
         findAllPathsToDestinationFromThisNode(
                 startNode,
                 endNode,
                 pathsFound,
-                "",
-                maxNumVisitedNodes);
+                startNode.name(),
+                maxNumVisitedNodes); // The starting node isn't counted as a node visited.
         Answer answer = Answer.numeric(pathsFound.size());
         answer.setComment(String.join(",", pathsFound));
         return answer;
