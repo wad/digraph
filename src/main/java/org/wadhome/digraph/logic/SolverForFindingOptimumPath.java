@@ -22,11 +22,15 @@ public class SolverForFindingOptimumPath extends Solver {
 
         SolverForCountingPaths solver = new SolverForCountingPaths(graph);
 
-        // One way to solve this is to check for solutions for each possible weight,
+        // One easy way to solve this is to check for solutions for different weights,
         // starting at the smallest possible value, and working up to a reasonable maximum weight.
-        int minRouteWeightLimit = graph.getSmallestWeightFound();
-        int maxRouteWeightLimit = determineMaxRouteWeightLimit();
-        for (int maxWeight = minRouteWeightLimit; maxWeight <= maxRouteWeightLimit; maxWeight++) {
+        // This isn't a very fast algorithm, however, I'm certain that there are faster ways to compute a correct answer.
+
+        // We can constrain our search for a correct solution to be within these bounds.
+        int minRouteWeightLimitToConsider = graph.getSmallestWeightFound();
+        int maxRouteWeightLimitToConsider = determineMaxRouteWeightLimit();
+
+        for (int maxWeight = minRouteWeightLimitToConsider; maxWeight <= maxRouteWeightLimitToConsider; maxWeight++) {
 
             Answer answerCandidate = solver.computeNumPathsLimitedByTotalWeight(
                     startNode,
@@ -46,19 +50,20 @@ public class SolverForFindingOptimumPath extends Solver {
                 if (routeWithLeastWeightOptional.isEmpty()) {
                     throw new RuntimeException("Bug in code: There should be a route here!");
                 }
-                Route routeWithLeastWeight = routeWithLeastWeightOptional.get();
 
-                // Now that we have what we know is the shortest route,
-                // let's calculate the lightest weight we can achieve by following it.
-                SolverForSummingWeights solverForSummingWeights = new SolverForSummingWeights(graph);
-                Answer finalAnswer = solverForSummingWeights.computeTotalWeightOfSpecificRoute(
-                        routeWithLeastWeight,
-                        true);
-                finalAnswer.setRoutesChosen(singleton(routeWithLeastWeight));
-                return finalAnswer;
+                return computeTheLightestWeightAlongRoute(routeWithLeastWeightOptional.get());
             }
         }
         return Answer.notFound();
+    }
+
+    Answer computeTheLightestWeightAlongRoute(Route route) {
+        SolverForSummingWeights solverForSummingWeights = new SolverForSummingWeights(graph);
+        Answer answer = solverForSummingWeights.computeTotalWeightOfSpecificRoute(
+                route,
+                true);
+        answer.setRoutesChosen(singleton(route));
+        return answer;
     }
 
     // Question: Where did these values come from?

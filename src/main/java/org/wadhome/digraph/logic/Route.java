@@ -3,9 +3,18 @@ package org.wadhome.digraph.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is currently just a wrapper around a list, with a String that is kept in sync with it.
+ * If we were to want to replace the name field of the Node class with something other than
+ * just a single character, this class would let that happen without changing anything else in the logic of the code,
+ * as that nodesAsString member variable is only used for debugging tests.
+ */
 public class Route implements Comparable<Route> {
 
     private List<Node> nodes = new ArrayList<>();
+
+    // This is just for debugging. If we use something other than single characters for node names,
+    // we'll probably want to stick some delimiters into this string.
     private String nodesAsString = "";
 
     public Route() {
@@ -24,7 +33,6 @@ public class Route implements Comparable<Route> {
         addNode(nodeToAddToEnd);
     }
 
-    // Use this method if you don't care about the total weight
     public void addNode(Node node) {
         nodes.add(node);
         nodesAsString += node.name();

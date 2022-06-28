@@ -55,4 +55,6 @@ public class SolverForFindingOptimumRouteTest {
         assertTrue(answer.getWasAnswerFound());
         assertEquals(5, answer.getNumericResult(), answer.getRoutesChosenAsString());
     }
+
+    // todo: Write some more tests here
 }
