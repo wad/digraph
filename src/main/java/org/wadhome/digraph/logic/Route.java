@@ -5,17 +5,15 @@ import java.util.List;
 
 public class Route implements Comparable<Route> {
 
-    private List<Node> nodes;
-    private String nodesAsString;
+    private List<Node> nodes = new ArrayList<>();
+    private String nodesAsString = "";
 
     public Route() {
-        nodes = new ArrayList<>();
-        nodesAsString = "";
     }
 
     // We need a copy constructor, because we save off instances of route objects along the way
     public Route(Route originalRoute) {
-        nodes = originalRoute.getRouteNodes();
+        nodes = new ArrayList<>(originalRoute.getRouteNodes());
         nodesAsString = originalRoute.nodesAsString;
     }
 
@@ -33,19 +31,20 @@ public class Route implements Comparable<Route> {
     }
 
     public List<Node> getRouteNodes() {
-        return nodes;
+        // Let's not leak the internals! Can give out a copy is all.
+        return new ArrayList<>(nodes);
     }
 
     public boolean isEmpty() {
-        return nodes == null || nodes.isEmpty();
+        return nodes.isEmpty();
     }
 
     public int getNumNodesInRoute() {
-        return nodes == null ? 0 : nodes.size();
+        return nodes.size();
     }
 
     public Node getFirstNodeInRoute() {
-        return nodes == null ? null : nodes.get(0);
+        return nodes.get(0);
     }
 
     public void removeFirstNodeInRoute() {
@@ -69,17 +68,6 @@ public class Route implements Comparable<Route> {
 
         String myString = toString();
         String otherString = o.toString();
-
-        if (myString == null && otherString == null) {
-            return 0;
-        }
-        if (myString == null) {
-            return -1;
-        }
-        if (otherString == null) {
-            return 1;
-        }
-
         if (myString.length() == otherString.length()) {
             return myString.compareTo(otherString);
         }

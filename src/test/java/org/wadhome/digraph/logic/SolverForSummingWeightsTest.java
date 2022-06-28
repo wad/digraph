@@ -117,4 +117,20 @@ public class SolverForSummingWeightsTest {
         assertTrue(answer.getWasAnswerFound());
         assertEquals(15, answer.getNumericResult());
     }
+
+    @Test
+    public void testEasyRoute() {
+        SolverForSummingWeights logic = new SolverForSummingWeights(
+                new Graph("aa5,aa8"));
+
+        Route route = new Route();
+        route.addNode(new Node("a"));
+        route.addNode(new Node("a"));
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
+                route,
+                true);
+        assertTrue(answer.getIsAnswerExpected());
+        assertTrue(answer.getWasAnswerFound());
+        assertEquals(5, answer.getNumericResult());
+    }
 }

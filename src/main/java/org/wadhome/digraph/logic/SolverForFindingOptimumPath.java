@@ -2,8 +2,9 @@ package org.wadhome.digraph.logic;
 
 import org.wadhome.digraph.setup.Answer;
 
-import java.util.Collections;
 import java.util.Optional;
+
+import static java.util.Collections.singleton;
 
 /**
  * The logic in this class is around computing the optimum path through the graph,
@@ -33,25 +34,27 @@ public class SolverForFindingOptimumPath extends Solver {
                     maxWeight);
 
             // The first time we find routes, this is the answer.
+            // All the routes here will have the same weight, though they could be of different lengths.
+            // We'll choose one of the ones with fewer nodes.
             Integer numberOfRoutesFound = answerCandidate.getNumericResult();
             if (numberOfRoutesFound > 0) {
-                Optional<Route> routeWithFewestNodes = answerCandidate
+                Optional<Route> routeWithLeastWeightOptional = answerCandidate
                         .getRoutesChosen()
                         .stream()
-                        .sorted() // The Route comparator will make sure we get the shorter routes before the longer ones.
+                        .sorted() // The Route comparator will make sure that routes with fewer nodes come before routes with more nodes.
                         .findFirst();
-                if (routeWithFewestNodes.isEmpty()) {
+                if (routeWithLeastWeightOptional.isEmpty()) {
                     throw new RuntimeException("Bug in code: There should be a route here!");
                 }
-                Route shortestRoute = routeWithFewestNodes.get();
+                Route routeWithLeastWeight = routeWithLeastWeightOptional.get();
 
                 // Now that we have what we know is the shortest route,
-                // let's calculate the shortest path along it.
+                // let's calculate the lightest weight we can achieve by following it.
                 SolverForSummingWeights solverForSummingWeights = new SolverForSummingWeights(graph);
                 Answer finalAnswer = solverForSummingWeights.computeTotalWeightOfSpecificRoute(
-                        shortestRoute,
+                        routeWithLeastWeight,
                         true);
-                finalAnswer.setRoutesChosen(Collections.singleton(shortestRoute));
+                finalAnswer.setRoutesChosen(singleton(routeWithLeastWeight));
                 return finalAnswer;
             }
         }
