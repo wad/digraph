@@ -4,6 +4,9 @@ import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
 import org.wadhome.digraph.setup.Request;
 
+import java.util.Collections;
+import java.util.Set;
+
 import static org.wadhome.digraph.setup.Argument.*;
 
 public abstract class Solver {

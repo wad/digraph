@@ -2,6 +2,7 @@ package org.wadhome.digraph.logic;
 
 import org.wadhome.digraph.setup.Answer;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,8 +71,8 @@ public class SolverForSummingWeights extends Solver {
 
         // Add the weight to our sum.
         int weightToNextNode = preferringLessWeightOptions
-                ? findSmallestWeight(weightsAvailable)
-                : findLargestWeight(weightsAvailable);
+                ? Collections.min(weightsAvailable)
+                : Collections.max(weightsAvailable);
         answerSoFar.addToNumericResult(weightToNextNode);
 
         // Recursive call, let's do this again.
@@ -79,25 +80,5 @@ public class SolverForSummingWeights extends Solver {
                 remainingNodesToVisit,
                 answerSoFar,
                 preferringLessWeightOptions);
-    }
-
-    int findSmallestWeight(Set<Integer> weights) {
-        int smallest = Integer.MAX_VALUE;
-        for (Integer weight : weights) {
-            if (weight < smallest) {
-                smallest = weight;
-            }
-        }
-        return smallest;
-    }
-
-    int findLargestWeight(Set<Integer> weights) {
-        int largest = -1;
-        for (Integer weight : weights) {
-            if (weight > largest) {
-                largest = weight;
-            }
-        }
-        return largest;
     }
 }

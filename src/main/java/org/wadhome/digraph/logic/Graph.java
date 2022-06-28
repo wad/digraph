@@ -18,11 +18,6 @@ public class Graph {
     // We cannot use the keyset of the map to routes, because that may not include destination nodes.
     final Set<Node> nodesThatExist = new HashSet<>();
 
-    // We keep these values as we construct the graph, because some stuff needs them later,
-    // and it's simpler to just grab them as they go by than walk everything later one.
-    int smallestWeightFound = Integer.MAX_VALUE;
-    int greatestWeightFound = -1;
-
     public Graph(String commaDelimitedWeightedEdges) {
         if (commaDelimitedWeightedEdges == null) {
             commaDelimitedWeightedEdges = "";
@@ -43,12 +38,6 @@ public class Graph {
         nodesThatExist.add(destinationNode);
 
         int weight = edge.getWeight();
-        if (weight > greatestWeightFound) {
-            greatestWeightFound = weight;
-        }
-        if (weight < smallestWeightFound) {
-            smallestWeightFound = weight;
-        }
 
         Map<Node, Set<Integer>> weightsByDestinationNode = routesByStartingNode.computeIfAbsent(
                 sourceNode,
@@ -66,14 +55,6 @@ public class Graph {
 
     public Map<Node, Set<Integer>> getAllRoutesFromNode(Node sourceNode) {
         return routesByStartingNode.get(sourceNode);
-    }
-
-    public int getGreatestWeightFound() {
-        return greatestWeightFound;
-    }
-
-    public int getSmallestWeightFound() {
-        return smallestWeightFound;
     }
 
     // This just dumps the data to the screen, in a consistent order, so that test code can validate.

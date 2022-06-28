@@ -2,9 +2,13 @@ package org.wadhome.digraph.logic;
 
 import org.wadhome.digraph.setup.Answer;
 
-import java.util.Optional;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static java.util.Collections.singleton;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * The logic in this class is around computing the optimum route through the graph,
@@ -20,60 +24,69 @@ public class SolverForFindingOptimumRoute extends Solver {
             Node startNode,
             Node endNode) {
 
-        SolverForCountingRoutes solver = new SolverForCountingRoutes(graph);
+        // If either the start or ending node doesn't exist, there are zero routes.
+        if (!graph.doesNodeExist(startNode) || !graph.doesNodeExist(endNode)) {
+            return Answer.notFound();
+        }
 
-        // One easy way to solve this is to check for solutions for different weights,
-        // starting at the smallest possible value, and working up to a reasonable maximum weight.
-        // This isn't a very fast algorithm, however, I'm certain that there are faster ways to compute a correct answer.
+        Route route = new Route();
+        route.addNode(startNode);
 
-        // We can constrain our search for a correct solution to be within these bounds.
-        int minRouteWeightLimitToConsider = graph.getSmallestWeightFound();
-        int maxRouteWeightLimitToConsider = determineMaxRouteWeightLimit();
+        return computeRouteWithLeastTotalWeightHelper(
+                startNode,
+                endNode,
+                new HashSet<>(),
+                route,
+                0);
+    }
 
-        for (int maxWeight = minRouteWeightLimitToConsider; maxWeight <= maxRouteWeightLimitToConsider; maxWeight++) {
+    Answer computeRouteWithLeastTotalWeightHelper(
+            Node currentNode,
+            Node destinationNode,
+            Set<Node> visitedNodes,
+            Route routeSoFar,
+            int weightSoFar) {
 
-            Answer answerCandidate = solver.computeNumRoutesLimitedByTotalWeight(
-                    startNode,
-                    endNode,
-                    maxWeight);
+        if (currentNode.equals(destinationNode)) {
+            Answer answer = Answer.numeric(weightSoFar);
+            answer.setRoutesChosen(singleton(new Route(routeSoFar)));
+            return  answer;
+        }
 
-            // The first time we find routes, this is the answer.
-            // All the routes here will have the same weight, though they could be of different lengths.
-            // We'll choose one of the ones with fewer nodes.
-            Integer numberOfRoutesFound = answerCandidate.getNumericResult();
-            if (numberOfRoutesFound > 0) {
-                Optional<Route> routeWithLeastWeightOptional = answerCandidate
-                        .getRoutesChosen()
-                        .stream()
-                        .sorted() // The Route comparator will make sure that routes with fewer nodes come before routes with more nodes.
-                        .findFirst();
-                if (routeWithLeastWeightOptional.isEmpty()) {
-                    throw new RuntimeException("Bug in code: There should be a route here!");
+        visitedNodes.add(currentNode);
+
+        Map<Node, Set<Integer>> allRoutesFromNode = graph.getAllRoutesFromNode(currentNode);
+        if (allRoutesFromNode == null) {
+            return Answer.notFound();
+        }
+
+        Set<Node> nodesToTry = allRoutesFromNode
+                .keySet()
+                .stream()
+                .filter(node -> !visitedNodes.contains(node))
+                .collect(toSet());
+        if (nodesToTry.isEmpty()) {
+            return Answer.notFound();
+        }
+
+        int leastWeightFound = Integer.MAX_VALUE;
+        Answer bestAnswer = Answer.notFound();
+        for (Node node : nodesToTry) {
+            int smallestWeightToThatNode = Collections.min(allRoutesFromNode.get(node));
+            Answer answer = computeRouteWithLeastTotalWeightHelper(
+                    node,
+                    destinationNode,
+                    new HashSet<>(visitedNodes),
+                    new Route(routeSoFar, node),
+                    weightSoFar + smallestWeightToThatNode);
+            if (answer.getWasAnswerFound()) {
+                int weightFound = answer.getNumericResult();
+                if (weightFound < leastWeightFound) {
+                    leastWeightFound = weightFound;
+                    bestAnswer = answer;
                 }
-
-                return computeTheLightestWeightAlongRoute(routeWithLeastWeightOptional.get());
             }
         }
-        return Answer.notFound();
-    }
-
-    Answer computeTheLightestWeightAlongRoute(Route route) {
-        SolverForSummingWeights solverForSummingWeights = new SolverForSummingWeights(graph);
-        Answer answer = solverForSummingWeights.computeTotalWeightOfSpecificRoute(
-                route,
-                true);
-        answer.setRoutesChosen(singleton(route));
-        return answer;
-    }
-
-    // Question: Where did these values come from?
-    // Answer: No place in particular, I just chose logical-seeming values.
-    // They are just to make sure that things don't go off the rails (haha).
-    int determineMaxRouteWeightLimit() {
-        int greatestWeightFound = graph.getGreatestWeightFound();
-        if (greatestWeightFound >= Integer.MAX_VALUE / 10) {
-            return Integer.MAX_VALUE;
-        }
-        return greatestWeightFound * 100;
+        return bestAnswer;
     }
 }
