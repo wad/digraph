@@ -17,18 +17,18 @@ public class SolverForSummingWeights extends Solver {
     }
 
     public Answer computeTotalWeightOfSpecificRoute(
-            List<Node> nodesInVisitOrder,
+            Route nodesInVisitOrder,
             boolean preferringLessWeightOptions) {
         Answer answer = Answer.numeric(0);
         computeTotalWeightOfSpecificRouteHelper(
-                nodesInVisitOrder,
+                new Route(nodesInVisitOrder), // use the copy constructor, because our method is destructive
                 answer,
                 preferringLessWeightOptions);
         return answer;
     }
 
     void computeTotalWeightOfSpecificRouteHelper(
-            List<Node> remainingNodesToVisit,
+            Route remainingNodesToVisit,
             Answer answerSoFar,
             boolean preferringLessWeightOptions) {
 
@@ -37,7 +37,7 @@ public class SolverForSummingWeights extends Solver {
             return;
         }
 
-        Node currentNode = remainingNodesToVisit.get(0);
+        Node currentNode = remainingNodesToVisit.getFirstNodeInRoute();
         Map<Node, Set<Integer>> allDestinationsFromCurrentNode = graph.getAllPathsFromNode(currentNode);
 
         // We need to make sure that the current node actually exists.
@@ -47,7 +47,7 @@ public class SolverForSummingWeights extends Solver {
             return;
         }
 
-        boolean thisIsTheFinalNode = remainingNodesToVisit.size() == 1;
+        boolean thisIsTheFinalNode = remainingNodesToVisit.getNumNodesInRoute() == 1;
         if (thisIsTheFinalNode) {
             // We have arrived, and the weights in the answer are correct.
             return;
@@ -60,8 +60,8 @@ public class SolverForSummingWeights extends Solver {
         }
 
         // Now consider the next node to visit.
-        remainingNodesToVisit.remove(0);
-        Node nextNode = remainingNodesToVisit.get(0);
+        remainingNodesToVisit.removeFirstNodeInRoute();
+        Node nextNode = remainingNodesToVisit.getFirstNodeInRoute();
         Set<Integer> weightsAvailable = allDestinationsFromCurrentNode.get(nextNode);
         if (weightsAvailable == null) {
             // The next node isn't reachable directly from this node.

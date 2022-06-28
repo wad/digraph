@@ -1,11 +1,18 @@
 package org.wadhome.digraph.setup;
 
+import org.wadhome.digraph.logic.Route;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.stream.Collectors.joining;
+
 public class Answer implements Comparable<Answer> {
 
     boolean noAnswerExpected;
     boolean noAnswerFound;
     Integer numericResult;
-    String comment = null;
+    Set<Route> routesChosen;
 
     static final String MESSAGE_FOR_NO_ANSWER_FOUND = "NO SUCH ROUTE";
 
@@ -53,12 +60,31 @@ public class Answer implements Comparable<Answer> {
         noAnswerFound = true;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void addToRoutesChosen(Route route) {
+        if (routesChosen == null) {
+            routesChosen = new HashSet<>();
+        }
+        routesChosen.add(route);
     }
 
-    public String getComment() {
-        return comment == null ? "" : comment;
+    public void setRoutesChosen(Set<Route> routesChosen) {
+        this.routesChosen = routesChosen;
+    }
+
+    public Set<Route> getRoutesChosen() {
+        return routesChosen;
+    }
+
+    public String getRoutesChosenAsString() {
+        if (routesChosen == null) {
+            return "";
+        }
+        return String.join(
+                ",",
+                routesChosen
+                        .stream()
+                        .map(Route::toString)
+                        .collect(joining()));
     }
 
     @Override

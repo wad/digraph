@@ -25,12 +25,12 @@ public abstract class Solver {
             case ComputeTotalWeightOfSpecificRoutePreferringLessWeight:
                 return new SolverForSummingWeights(graph)
                         .computeTotalWeightOfSpecificRoute(
-                                argumentValues.getValueAsListOfNodes(ListOfNodes),
+                                argumentValues.getValueAsRoute(ListOfNodes),
                                 true);
             case ComputeTotalWeightOfSpecificRoutePreferringMoreWeight:
                 return new SolverForSummingWeights(graph)
                         .computeTotalWeightOfSpecificRoute(
-                                argumentValues.getValueAsListOfNodes(ListOfNodes),
+                                argumentValues.getValueAsRoute(ListOfNodes),
                                 false);
             case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes:
                 return new SolverForCountingPaths(graph)

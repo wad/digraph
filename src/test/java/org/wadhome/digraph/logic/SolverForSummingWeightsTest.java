@@ -3,9 +3,6 @@ package org.wadhome.digraph.logic;
 import org.junit.jupiter.api.Test;
 import org.wadhome.digraph.setup.Answer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolverForSummingWeightsTest {
@@ -15,12 +12,12 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph(""));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("A"));
-        nodesInVisitOrder.add(new Node("B"));
-        nodesInVisitOrder.add(new Node("C"));
+        Route route = new Route();
+        route.addNode(new Node("A"));
+        route.addNode(new Node("B"));
+        route.addNode(new Node("C"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertFalse(answer.getWasAnswerFound());
@@ -31,9 +28,9 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph(""));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
+        Route route = new Route();
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertTrue(answer.getWasAnswerFound());
@@ -45,10 +42,10 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,bc2"));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("z"));
+        Route route = new Route();
+        route.addNode(new Node("z"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertFalse(answer.getWasAnswerFound());
@@ -59,11 +56,11 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,bc2"));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("z"));
+        Route route = new Route();
+        route.addNode(new Node("a"));
+        route.addNode(new Node("z"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertFalse(answer.getWasAnswerFound());
@@ -74,12 +71,12 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,ab9,bc9,bc1"));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("b"));
-        nodesInVisitOrder.add(new Node("c"));
+        Route route = new Route();
+        route.addNode(new Node("a"));
+        route.addNode(new Node("b"));
+        route.addNode(new Node("c"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertTrue(answer.getWasAnswerFound());
@@ -91,12 +88,12 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,ab9,bc9,bc1"));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("b"));
-        nodesInVisitOrder.add(new Node("c"));
+        Route route = new Route();
+        route.addNode(new Node("a"));
+        route.addNode(new Node("b"));
+        route.addNode(new Node("c"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 false);
         assertTrue(answer.getIsAnswerExpected());
         assertTrue(answer.getWasAnswerFound());
@@ -108,13 +105,13 @@ public class SolverForSummingWeightsTest {
         SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("aa5,aa8"));
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("a"));
-        nodesInVisitOrder.add(new Node("a"));
+        Route route = new Route();
+        route.addNode(new Node("a"));
+        route.addNode(new Node("a"));
+        route.addNode(new Node("a"));
+        route.addNode(new Node("a"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
         assertTrue(answer.getIsAnswerExpected());
         assertTrue(answer.getWasAnswerFound());

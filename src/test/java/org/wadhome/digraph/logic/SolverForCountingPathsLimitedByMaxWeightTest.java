@@ -16,7 +16,7 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
                 new Node("a"),
                 new Node("b"),
                 18);
-        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
                 new Node("a"),
                 new Node("b"),
                 0);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
                 new Node("a"),
                 new Node("c"),
                 10000);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
                 new Node("a"),
                 new Node("b"),
                 10000);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
                 new Node("a"),
                 new Node("a"),
                 5);
-        assertEquals(5, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(5, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 }

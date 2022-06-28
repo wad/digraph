@@ -17,14 +17,14 @@ public class HappyDayTest {
     public void testComputeTotalWeightOfSpecificRoute() {
         SolverForSummingWeights logic = new SolverForSummingWeights(graph);
 
-        List<Node> nodesInVisitOrder = new ArrayList<>();
-        nodesInVisitOrder.add(new Node("A"));
-        nodesInVisitOrder.add(new Node("B"));
-        nodesInVisitOrder.add(new Node("C"));
+        Route route = new Route();
+        route.addNode(new Node("A"));
+        route.addNode(new Node("B"));
+        route.addNode(new Node("C"));
         Answer answer = logic.computeTotalWeightOfSpecificRoute(
-                nodesInVisitOrder,
+                route,
                 true);
-        assertEquals(9, answer.getNumericResult(), answer.getComment());
+        assertEquals(9, answer.getNumericResult(), answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class HappyDayTest {
                 new Node("c"),
                 new Node("c"),
                 3);
-        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class HappyDayTest {
                 new Node("c"),
                 new Node("c"),
                 29);
-        assertEquals(7, answer.getNumericResult(), answer.getComment());
+        assertEquals(7, answer.getNumericResult(), answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class HappyDayTest {
         Answer answer = logic.computeRouteWithLeastTotalWeight(
                 new Node("a"),
                 new Node("c"));
-        assertEquals(9, answer.getNumericResult(), answer.getComment());
+        assertEquals(9, answer.getNumericResult(), answer.getRoutesChosenAsString());
     }
 }

@@ -16,7 +16,7 @@ public class SolverForCountingPathsLimitedByNumNodesTest {
                 new Node("a"),
                 new Node("b"),
                 2);
-        assertEquals(3, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(3, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class SolverForCountingPathsLimitedByNumNodesTest {
                 new Node("a"),
                 new Node("b"),
                 0);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SolverForCountingPathsLimitedByNumNodesTest {
                 new Node("a"),
                 new Node("c"),
                 10);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SolverForCountingPathsLimitedByNumNodesTest {
                 new Node("a"),
                 new Node("b"),
                 3);
-        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class SolverForCountingPathsLimitedByNumNodesTest {
                 new Node("a"),
                 new Node("a"),
                 5);
-        assertEquals(5, answer.getNumericResult(), "Got this: " + answer.getComment());
+        assertEquals(5, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 }

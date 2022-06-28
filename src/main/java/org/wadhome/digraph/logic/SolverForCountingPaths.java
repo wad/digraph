@@ -30,23 +30,26 @@ public class SolverForCountingPaths extends Solver {
             return Answer.numeric(0);
         }
 
-        Set<String> pathsFound = new HashSet<>();
+        Route newRoute = new Route();
+        newRoute.addNode(startNode);
+
+        Set<Route> pathsFound = new HashSet<>();
         findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
                 startNode,
                 endNode,
                 pathsFound,
-                startNode.name(),
+                newRoute,
                 maxNumVisitedNodes); // The starting node isn't counted as a node visited.
         Answer answer = Answer.numeric(pathsFound.size());
-        answer.setComment(String.join(",", pathsFound));
+        answer.setRoutesChosen(pathsFound);
         return answer;
     }
 
     void findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
             Node currentNode,
             Node destinationNode,
-            Set<String> pathsFound,
-            String myPathSoFar,
+            Set<Route> pathsFound,
+            Route myPathSoFar,
             int maxNumVisitedNodesRemaining) {
 
         // Exit condition, we're out of visits to consider.
@@ -59,7 +62,7 @@ public class SolverForCountingPaths extends Solver {
 
             // We found the destination node, we need to save this as a solution path.
             if (potentialNextNode.equals(destinationNode)) {
-                pathsFound.add(myPathSoFar + potentialNextNode.name());
+                pathsFound.add(new Route(myPathSoFar, potentialNextNode));
                 // Don't return, though, there may be more visits we can make, and come back here again later.
             }
 
@@ -68,7 +71,7 @@ public class SolverForCountingPaths extends Solver {
                     potentialNextNode,
                     destinationNode,
                     pathsFound,
-                    myPathSoFar + potentialNextNode.name(),
+                    new Route(myPathSoFar, potentialNextNode),
                     maxNumVisitedNodesRemaining - 1);
         }
     }
@@ -83,23 +86,26 @@ public class SolverForCountingPaths extends Solver {
             return Answer.numeric(0);
         }
 
-        Set<String> pathsFound = new HashSet<>();
+        Route newRoute = new Route();
+        newRoute.addNode(startNode);
+
+        Set<Route> pathsFound = new HashSet<>();
         findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
                 startNode,
                 endNode,
                 pathsFound,
-                startNode.name(),
+                newRoute,
                 maxTotalWeight);
         Answer answer = Answer.numeric(pathsFound.size());
-        answer.setComment(String.join(",", pathsFound));
+        answer.setRoutesChosen(pathsFound);
         return answer;
     }
 
     void findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
             Node currentNode,
             Node destinationNode,
-            Set<String> pathsFound,
-            String myPathSoFar,
+            Set<Route> pathsFound,
+            Route myPathSoFar,
             int maxTotalWeightRemaining) {
 
         // Exit condition, we've used up all our allocated weight.
@@ -108,6 +114,11 @@ public class SolverForCountingPaths extends Solver {
         }
 
         Map<Node, Set<Integer>> allPathsFromCurrentNode = graph.getAllPathsFromNode(currentNode);
+        if (allPathsFromCurrentNode == null) {
+            // there is no way to move forward
+            return;
+        }
+
         Set<Node> nodesWeCanVisitNext = allPathsFromCurrentNode.keySet();
         for (Node potentialNextNode : nodesWeCanVisitNext) {
 
@@ -124,7 +135,7 @@ public class SolverForCountingPaths extends Solver {
 
                 // We found the destination node, we need to save this as a solution path.
                 if (potentialNextNode.equals(destinationNode)) {
-                    pathsFound.add(myPathSoFar + potentialNextNode.name());
+                    pathsFound.add(new Route(myPathSoFar, potentialNextNode));
                     // Don't return, though, there may be more visits we can make,
                     // and we might come back here again later.
                 }
@@ -136,7 +147,7 @@ public class SolverForCountingPaths extends Solver {
                         potentialNextNode,
                         destinationNode,
                         pathsFound,
-                        myPathSoFar + potentialNextNode.name(),
+                        new Route(myPathSoFar, potentialNextNode),
                         weightThatWouldBeRemaining);
             }
         }

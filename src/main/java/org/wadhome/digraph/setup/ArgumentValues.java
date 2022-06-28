@@ -1,8 +1,8 @@
 package org.wadhome.digraph.setup;
 
 import org.wadhome.digraph.logic.Node;
+import org.wadhome.digraph.logic.Route;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +54,12 @@ public class ArgumentValues {
         }
     }
 
-    public List<Node> getValueAsListOfNodes(Argument argument) {
+    public Route getValueAsRoute(Argument argument) {
         String value = getValueAsString(argument);
-        List<Node> nodes = new ArrayList<>();
+        Route route = new Route();
         for (int i = 0; i < value.length(); i++) {
-            nodes.add(new Node(String.valueOf(value.charAt(i))));
+            route.addNode(new Node(String.valueOf(value.charAt(i))));
         }
-        return nodes;
+        return route;
     }
 }
