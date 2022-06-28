@@ -5,26 +5,26 @@ import org.wadhome.digraph.setup.Answer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SolverForCountingPathsLimitedByMaxWeightTest {
+public class SolverForCountingRoutesLimitedByNumNodesTest {
 
     @Test
     public void testSimpleCase() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(
-                new Graph("aa5,ab10,ba100,bb1000"));
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(
+                new Graph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
-                18);
-        assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
+                2);
+        assertEquals(3, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
-    public void testCaseWhereNoWeightAllowed() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(
-                new Graph("aa5,ab10,ba100,bb1000"));
+    public void testCaseWhereNoVisitedNodes() {
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(
+                new Graph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
                 0);
@@ -33,34 +33,34 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
 
     @Test
     public void testCaseWhereDestinationNodeIsMissing() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(
-                new Graph("aa5,ab10,ba100,bb1000"));
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(
+                new Graph("aa1,ab1,ba1,bb1"));
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("c"),
-                10000);
+                10);
         assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
     public void testCaseWhereNoGraph() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(
                 new Graph(""));
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("b"),
-                10000);
+                3);
         assertEquals(0, answer.getNumericResult(), "Got this: " + answer.getRoutesChosenAsString());
     }
 
     @Test
     public void testCaseWhereThereIsJustOne() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(
                 new Graph("aa1"));
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("a"),
                 new Node("a"),
                 5);

@@ -26,27 +26,27 @@ public enum Request {
             List.of(Argument.ListOfNodes),
             "Total weight of the specified route:"),
 
-    ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes(
+    ComputeNumRoutesBetweenTwoNodesWithLimitOfVisitedNodes(
             "2a",
-            "Compute number of paths between two nodes, up to the specified maximum number of nodes visited.",
+            "Compute number of routes between two nodes, up to the specified maximum number of nodes visited.",
             Arrays.asList(
                     Argument.StartNodeName,
                     Argument.EndNodeName,
                     Argument.MaxNumNodesVisited),
-            "Number of paths, limited by a maximum number of visited nodes, between selected nodes:"),
+            "Number of routes, limited by a maximum number of visited nodes, between selected nodes:"),
 
-    ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight(
+    ComputeNumRoutesBetweenTwoNodesWithLimitOfTotalWeight(
             "2b",
-            "Compute number of paths between two nodes, up to the specified maximum total weight.",
+            "Compute number of routes between two nodes, up to the specified maximum total weight.",
             Arrays.asList(
                     Argument.StartNodeName,
                     Argument.EndNodeName,
                     Argument.MaxTotalWeight),
-            "Number of paths, limited by a maximum total weight, between selected nodes:"),
+            "Number of routes, limited by a maximum total weight, between selected nodes:"),
 
-    ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight(
+    ComputeTotalWeightOfRouteBetweenTwoNodesWithLeastTotalWeight(
             "3",
-            "Compute total weight of the path between two nodes that has the least total weight.",
+            "Compute total weight of the routes between two nodes that has the least total weight.",
             Arrays.asList(
                     Argument.StartNodeName,
                     Argument.EndNodeName),

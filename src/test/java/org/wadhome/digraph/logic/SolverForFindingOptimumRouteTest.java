@@ -9,7 +9,7 @@ public class SolverForFindingOptimumRouteTest {
 
     @Test
     public void testCaseWithNoGraph() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(
                 new Graph(""));
 
         Answer answer = logic.computeRouteWithLeastTotalWeight(
@@ -21,7 +21,7 @@ public class SolverForFindingOptimumRouteTest {
 
     @Test
     public void testCaseWhereThereTheStartingNodeDoesNotExist() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(
                 new Graph("ab1,bc2"));
 
         Answer answer = logic.computeRouteWithLeastTotalWeight(
@@ -33,7 +33,7 @@ public class SolverForFindingOptimumRouteTest {
 
     @Test
     public void testCaseWhereThereIsNoRoute() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(
                 new Graph("ab1,cd1"));
 
         Answer answer = logic.computeRouteWithLeastTotalWeight(
@@ -45,7 +45,7 @@ public class SolverForFindingOptimumRouteTest {
 
     @Test
     public void testWithTightLoop() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(
                 new Graph("aa5,aa8"));
 
         Answer answer = logic.computeRouteWithLeastTotalWeight(
@@ -58,7 +58,7 @@ public class SolverForFindingOptimumRouteTest {
 
     @Test
     public void testMoreComplicatedSituation() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(
                 new Graph("aa5,aa8,aa5,ab21,ab1,ac90,bc22,bc11,bc12,bc18,cd100,de7,ef1,df7,dx5,dy5,dz5"));
         // ab: best is 1
         // ac: not doing ac, because it's huge

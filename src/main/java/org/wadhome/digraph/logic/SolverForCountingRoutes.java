@@ -9,23 +9,24 @@ import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 
 /**
- * The logic in this class is around computing the number of paths found from
+ * The logic in this class is around computing the number of routes found from
  * a starting node to an ending node, with various types of limits.
  */
-public class SolverForCountingPaths extends Solver {
+public class SolverForCountingRoutes extends Solver {
 
-    public SolverForCountingPaths(Graph graph) {
+    public SolverForCountingRoutes(Graph graph) {
         super(graph);
     }
 
-    public Answer computeNumPathsLimitedByVisitingNodes(
+    public Answer computeNumRoutesLimitedByVisitingNodes(
             Node startNode,
             Node endNode,
             int maxNumVisitedNodes) {
-        // Compute number of paths between two nodes, up to the specified maximum number of nodes visited.
-        // Do we consider AB4 and AB7 as different paths? No, the path is AB, so those are the same.
+        // Compute number of routes between two nodes, up to the specified maximum number of nodes visited.
+        // Do we consider AB4 and AB7 as different routes? No, the route is AB, so those are the same,
+        // even though they have different weights.
 
-        // If either the start or ending node doesn't exist, there are zero paths.
+        // If either the start or ending node doesn't exist, there are zero routes.
         if (!graph.doesNodeExist(startNode) || !graph.doesNodeExist(endNode)) {
             return Answer.numeric(0);
         }
@@ -33,23 +34,23 @@ public class SolverForCountingPaths extends Solver {
         Route newRoute = new Route();
         newRoute.addNode(startNode);
 
-        Set<Route> pathsFound = new HashSet<>();
-        findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
+        Set<Route> routesFound = new HashSet<>();
+        findAllRoutesToDestinationFromThisNodeUpToMaxNodesVisited(
                 startNode,
                 endNode,
-                pathsFound,
+                routesFound,
                 newRoute,
                 maxNumVisitedNodes); // The starting node isn't counted as a node visited.
-        Answer answer = Answer.numeric(pathsFound.size());
-        answer.setRoutesChosen(pathsFound);
+        Answer answer = Answer.numeric(routesFound.size());
+        answer.setRoutesChosen(routesFound);
         return answer;
     }
 
-    void findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
+    void findAllRoutesToDestinationFromThisNodeUpToMaxNodesVisited(
             Node currentNode,
             Node destinationNode,
-            Set<Route> pathsFound,
-            Route myPathSoFar,
+            Set<Route> routesFound,
+            Route myRouteSoFar,
             int maxNumVisitedNodesRemaining) {
 
         // Exit condition, we're out of visits to consider.
@@ -57,31 +58,31 @@ public class SolverForCountingPaths extends Solver {
             return;
         }
 
-        Set<Node> nodesWeCanVisitNext = graph.getAllPathsFromNode(currentNode).keySet();
+        Set<Node> nodesWeCanVisitNext = graph.getAllRoutesFromNode(currentNode).keySet();
         for (Node potentialNextNode : nodesWeCanVisitNext) {
 
-            // We found the destination node, we need to save this as a solution path.
+            // We found the destination node, we need to save this as a solution route.
             if (potentialNextNode.equals(destinationNode)) {
-                pathsFound.add(new Route(myPathSoFar, potentialNextNode));
+                routesFound.add(new Route(myRouteSoFar, potentialNextNode));
                 // Don't return, though, there may be more visits we can make, and come back here again later.
             }
 
             // Go wide, for each connected node, make a recursive call.
-            findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
+            findAllRoutesToDestinationFromThisNodeUpToMaxNodesVisited(
                     potentialNextNode,
                     destinationNode,
-                    pathsFound,
-                    new Route(myPathSoFar, potentialNextNode),
+                    routesFound,
+                    new Route(myRouteSoFar, potentialNextNode),
                     maxNumVisitedNodesRemaining - 1);
         }
     }
 
-    public Answer computeNumPathsLimitedByTotalWeight(
+    public Answer computeNumRoutesLimitedByTotalWeight(
             Node startNode,
             Node endNode,
             int maxTotalWeight) {
 
-        // If either the start or ending node doesn't exist, there are zero paths.
+        // If either the start or ending node doesn't exist, there are zero routes.
         if (!graph.doesNodeExist(startNode) || !graph.doesNodeExist(endNode)) {
             return Answer.numeric(0);
         }
@@ -89,23 +90,23 @@ public class SolverForCountingPaths extends Solver {
         Route newRoute = new Route();
         newRoute.addNode(startNode);
 
-        Set<Route> pathsFound = new HashSet<>();
-        findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
+        Set<Route> routesFound = new HashSet<>();
+        findAllRoutesToDestinationFromThisNodeNotExceedingMaxWeight(
                 startNode,
                 endNode,
-                pathsFound,
+                routesFound,
                 newRoute,
                 maxTotalWeight);
-        Answer answer = Answer.numeric(pathsFound.size());
-        answer.setRoutesChosen(pathsFound);
+        Answer answer = Answer.numeric(routesFound.size());
+        answer.setRoutesChosen(routesFound);
         return answer;
     }
 
-    void findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
+    void findAllRoutesToDestinationFromThisNodeNotExceedingMaxWeight(
             Node currentNode,
             Node destinationNode,
-            Set<Route> pathsFound,
-            Route myPathSoFar,
+            Set<Route> routesFound,
+            Route myRouteSoFar,
             int maxTotalWeightRemaining) {
 
         // Exit condition, we've used up all our allocated weight.
@@ -113,16 +114,16 @@ public class SolverForCountingPaths extends Solver {
             return;
         }
 
-        Map<Node, Set<Integer>> allPathsFromCurrentNode = graph.getAllPathsFromNode(currentNode);
-        if (allPathsFromCurrentNode == null) {
+        Map<Node, Set<Integer>> allRoutesFromCurrentNode = graph.getAllRoutesFromNode(currentNode);
+        if (allRoutesFromCurrentNode == null) {
             // there is no way to move forward
             return;
         }
 
-        Set<Node> nodesWeCanVisitNext = allPathsFromCurrentNode.keySet();
+        Set<Node> nodesWeCanVisitNext = allRoutesFromCurrentNode.keySet();
         for (Node potentialNextNode : nodesWeCanVisitNext) {
 
-            Set<Integer> weightsAvailableToThereFromHere = allPathsFromCurrentNode
+            Set<Integer> weightsAvailableToThereFromHere = allRoutesFromCurrentNode
                     .get(potentialNextNode)
                     .stream()
 
@@ -133,9 +134,9 @@ public class SolverForCountingPaths extends Solver {
 
             for (Integer weight : weightsAvailableToThereFromHere) {
 
-                // We found the destination node, we need to save this as a solution path.
+                // We found the destination node, we need to save this as a solution route.
                 if (potentialNextNode.equals(destinationNode)) {
-                    pathsFound.add(new Route(myPathSoFar, potentialNextNode));
+                    routesFound.add(new Route(myRouteSoFar, potentialNextNode));
                     // Don't return, though, there may be more visits we can make,
                     // and we might come back here again later.
                 }
@@ -143,11 +144,11 @@ public class SolverForCountingPaths extends Solver {
                 int weightThatWouldBeRemaining = maxTotalWeightRemaining - weight;
 
                 // Go wide, for each connected node, make a recursive call.
-                findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
+                findAllRoutesToDestinationFromThisNodeNotExceedingMaxWeight(
                         potentialNextNode,
                         destinationNode,
-                        pathsFound,
-                        new Route(myPathSoFar, potentialNextNode),
+                        routesFound,
+                        new Route(myRouteSoFar, potentialNextNode),
                         weightThatWouldBeRemaining);
             }
         }

@@ -3,9 +3,6 @@ package org.wadhome.digraph.logic;
 import org.junit.jupiter.api.Test;
 import org.wadhome.digraph.setup.Answer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HappyDayTest {
@@ -28,10 +25,10 @@ public class HappyDayTest {
     }
 
     @Test
-    public void testComputeNumPathsLimitedByVisitingNodes() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(graph);
+    public void testComputeNumRoutesLimitedByVisitingNodes() {
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(graph);
 
-        Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
+        Answer answer = logic.computeNumRoutesLimitedByVisitingNodes(
                 new Node("c"),
                 new Node("c"),
                 3);
@@ -39,10 +36,10 @@ public class HappyDayTest {
     }
 
     @Test
-    public void testComputeNumPathsLimitedByTotalWeight() {
-        SolverForCountingPaths logic = new SolverForCountingPaths(graph);
+    public void testComputeNumRoutesLimitedByTotalWeight() {
+        SolverForCountingRoutes logic = new SolverForCountingRoutes(graph);
 
-        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumRoutesLimitedByTotalWeight(
                 new Node("c"),
                 new Node("c"),
                 29);
@@ -51,7 +48,7 @@ public class HappyDayTest {
 
     @Test
     public void testComputeRouteWithLeastTotalWeight() {
-        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(graph);
+        SolverForFindingOptimumRoute logic = new SolverForFindingOptimumRoute(graph);
 
         Answer answer = logic.computeRouteWithLeastTotalWeight(
                 new Node("a"),

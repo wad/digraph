@@ -32,20 +32,20 @@ public abstract class Solver {
                         .computeTotalWeightOfSpecificRoute(
                                 argumentValues.getValueAsRoute(ListOfNodes),
                                 false);
-            case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes:
-                return new SolverForCountingPaths(graph)
-                        .computeNumPathsLimitedByVisitingNodes(
+            case ComputeNumRoutesBetweenTwoNodesWithLimitOfVisitedNodes:
+                return new SolverForCountingRoutes(graph)
+                        .computeNumRoutesLimitedByVisitingNodes(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName),
                                 argumentValues.getValueAsInt(MaxNumNodesVisited));
-            case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight:
-                return new SolverForCountingPaths(graph)
-                        .computeNumPathsLimitedByTotalWeight(
+            case ComputeNumRoutesBetweenTwoNodesWithLimitOfTotalWeight:
+                return new SolverForCountingRoutes(graph)
+                        .computeNumRoutesLimitedByTotalWeight(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName),
                                 argumentValues.getValueAsInt(MaxTotalWeight));
-            case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight:
-                return new SolverForFindingOptimumPath(graph)
+            case ComputeTotalWeightOfRouteBetweenTwoNodesWithLeastTotalWeight:
+                return new SolverForFindingOptimumRoute(graph)
                         .computeRouteWithLeastTotalWeight(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName));

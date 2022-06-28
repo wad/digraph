@@ -7,17 +7,19 @@ import static org.wadhome.digraph.setup.Output.show;
 public class Graph {
 
     // The outer key is a given starting node.
-    // For each of those, there is a map of the paths leading from it.
-    // Each of those paths is in the form of a map (key being the destination node)
+    // For each of those, there is a map of the routes leading from it.
+    // Each of those routes is in the form of a map (key being the destination node)
     // to a set of weights.
-    // This is because there can be multiple paths between A and B, with different weights.
-    // It's a set, because I'm pretty sure we don't want duplicate paths with the exact same source,
+    // This is because there can be multiple routes between A and B, with different weights.
+    // It's a set, because I'm pretty sure we don't want duplicate routes with the exact same source,
     // destination, and weight.
-    final Map<Node, Map<Node, Set<Integer>>> pathsByStartingNode = new HashMap<>();
+    final Map<Node, Map<Node, Set<Integer>>> routesByStartingNode = new HashMap<>();
 
-    // We cannot use the keyset of the map to paths, because that may not include destination nodes.
+    // We cannot use the keyset of the map to routes, because that may not include destination nodes.
     final Set<Node> nodesThatExist = new HashSet<>();
 
+    // We keep these values as we construct the graph, because some stuff needs them later,
+    // and it's simpler to just grab them as they go by than walk everything later one.
     int smallestWeightFound = Integer.MAX_VALUE;
     int greatestWeightFound = -1;
 
@@ -48,7 +50,7 @@ public class Graph {
             smallestWeightFound = weight;
         }
 
-        Map<Node, Set<Integer>> weightsByDestinationNode = pathsByStartingNode.computeIfAbsent(
+        Map<Node, Set<Integer>> weightsByDestinationNode = routesByStartingNode.computeIfAbsent(
                 sourceNode,
                 k -> new HashMap<>());
         Set<Integer> weightsToThisDestination = weightsByDestinationNode.computeIfAbsent(
@@ -62,8 +64,8 @@ public class Graph {
         return nodesThatExist.contains(node);
     }
 
-    public Map<Node, Set<Integer>> getAllPathsFromNode(Node sourceNode) {
-        return pathsByStartingNode.get(sourceNode);
+    public Map<Node, Set<Integer>> getAllRoutesFromNode(Node sourceNode) {
+        return routesByStartingNode.get(sourceNode);
     }
 
     public int getGreatestWeightFound() {
@@ -77,14 +79,14 @@ public class Graph {
     // This just dumps the data to the screen, in a consistent order, so that test code can validate.
     public void showAll() {
         StringBuilder builder = new StringBuilder();
-        List<Node> startingNodes = pathsByStartingNode.keySet().stream().sorted().toList();
+        List<Node> startingNodes = routesByStartingNode.keySet().stream().sorted().toList();
         for (Node startingNode : startingNodes) {
             builder.append(startingNode.name()).append(":");
             boolean isFirstInList = true;
-            Map<Node, Set<Integer>> pathsFromHere = pathsByStartingNode.get(startingNode);
-            List<Node> destinationNodes = pathsFromHere.keySet().stream().sorted().toList();
+            Map<Node, Set<Integer>> routesFromHere = routesByStartingNode.get(startingNode);
+            List<Node> destinationNodes = routesFromHere.keySet().stream().sorted().toList();
             for (Node destNode : destinationNodes) {
-                List<Integer> weights = pathsFromHere.get(destNode).stream().sorted().toList();
+                List<Integer> weights = routesFromHere.get(destNode).stream().sorted().toList();
                 for (Integer weight : weights) {
                     if (isFirstInList) {
                         isFirstInList = false;

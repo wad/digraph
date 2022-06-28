@@ -15,7 +15,7 @@ mvn clean install
 ## Input file format
 
 A node is identified by a letter between A to Z.
-A directed edge is the source and destination node, followed by the weight of that path, like "AB3".
+A directed edge is the source and destination node, followed by the weight of that route, like "AB3".
 The input data is a comma-delimited list of directed edges, such as the following:
 
 ```

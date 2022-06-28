@@ -2,7 +2,6 @@ package org.wadhome.digraph.logic;
 
 import org.wadhome.digraph.setup.Answer;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class SolverForSummingWeights extends Solver {
         }
 
         Node currentNode = remainingNodesToVisit.getFirstNodeInRoute();
-        Map<Node, Set<Integer>> allDestinationsFromCurrentNode = graph.getAllPathsFromNode(currentNode);
+        Map<Node, Set<Integer>> allDestinationsFromCurrentNode = graph.getAllRoutesFromNode(currentNode);
 
         // We need to make sure that the current node actually exists.
         // Need to consider nodes that only exist as destinations, not only sources.

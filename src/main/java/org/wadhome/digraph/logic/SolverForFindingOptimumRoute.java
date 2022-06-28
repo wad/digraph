@@ -7,12 +7,12 @@ import java.util.Optional;
 import static java.util.Collections.singleton;
 
 /**
- * The logic in this class is around computing the optimum path through the graph,
+ * The logic in this class is around computing the optimum route through the graph,
  * from a starting node to an ending node.
  */
-public class SolverForFindingOptimumPath extends Solver {
+public class SolverForFindingOptimumRoute extends Solver {
 
-    public SolverForFindingOptimumPath(Graph graph) {
+    public SolverForFindingOptimumRoute(Graph graph) {
         super(graph);
     }
 
@@ -20,7 +20,7 @@ public class SolverForFindingOptimumPath extends Solver {
             Node startNode,
             Node endNode) {
 
-        SolverForCountingPaths solver = new SolverForCountingPaths(graph);
+        SolverForCountingRoutes solver = new SolverForCountingRoutes(graph);
 
         // One easy way to solve this is to check for solutions for different weights,
         // starting at the smallest possible value, and working up to a reasonable maximum weight.
@@ -32,7 +32,7 @@ public class SolverForFindingOptimumPath extends Solver {
 
         for (int maxWeight = minRouteWeightLimitToConsider; maxWeight <= maxRouteWeightLimitToConsider; maxWeight++) {
 
-            Answer answerCandidate = solver.computeNumPathsLimitedByTotalWeight(
+            Answer answerCandidate = solver.computeNumRoutesLimitedByTotalWeight(
                     startNode,
                     endNode,
                     maxWeight);
