@@ -12,17 +12,17 @@ public record Node(String name) implements Comparable<Node> {
     }
 
     String validateNodeName(String nodeName) {
-        if (nodeName == null || nodeName.length() != 1) {
+        if (nodeName == null) {
+            throw new RuntimeException("Missing nodeName");
+        }
+        nodeName = nodeName.trim().toUpperCase();
+        if (nodeName.length() != 1) {
             throw new RuntimeException("Invalid nodeName: '" + nodeName + "'");
         }
-
-        nodeName = nodeName.trim().toUpperCase();
-
         char c = nodeName.charAt(0);
         if (c < 'A' || c > 'Z') {
             throw new RuntimeException("Only accepting A-Z as valid node names.");
         }
-
         return nodeName;
     }
 

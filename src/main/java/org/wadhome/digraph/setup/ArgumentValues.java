@@ -16,16 +16,13 @@ public class ArgumentValues {
     public ArgumentValues(
             Request request,
             List<String> argumentValues) {
-
         List<Argument> arguments = request.getArguments();
         int numExpectedArguments = arguments.size();
-
         if (numExpectedArguments != argumentValues.size()) {
             show("Did not get the expected number of arguments for request " + request.getMenuIndicator() + ".");
             Request.showMenu();
             return;
         }
-
         int argumentIndex = 0;
         for (Argument argument : arguments) {
             valuesByArgument.put(
@@ -59,7 +56,6 @@ public class ArgumentValues {
 
     public List<Node> getValueAsListOfNodes(Argument argument) {
         String value = getValueAsString(argument);
-
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < value.length(); i++) {
             nodes.add(new Node(String.valueOf(value.charAt(i))));

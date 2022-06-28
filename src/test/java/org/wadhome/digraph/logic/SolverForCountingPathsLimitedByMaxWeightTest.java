@@ -5,11 +5,11 @@ import org.wadhome.digraph.setup.Answer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ComputationLogicForCountingPathsTest {
+public class SolverForCountingPathsLimitedByMaxWeightTest {
 
     @Test
     public void testSimpleCase() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
+        SolverForCountingPaths logic = new SolverForCountingPaths(
                 new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -21,7 +21,7 @@ public class ComputationLogicForCountingPathsTest {
 
     @Test
     public void testCaseWhereNoVisitedNodes() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
+        SolverForCountingPaths logic = new SolverForCountingPaths(
                 new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -33,7 +33,7 @@ public class ComputationLogicForCountingPathsTest {
 
     @Test
     public void testCaseWhereDestinationNodeIsMissing() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
+        SolverForCountingPaths logic = new SolverForCountingPaths(
                 new Graph("aa1,ab1,ba1,bb1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -45,7 +45,7 @@ public class ComputationLogicForCountingPathsTest {
 
     @Test
     public void testCaseWhereNoGraph() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
+        SolverForCountingPaths logic = new SolverForCountingPaths(
                 new Graph(""));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
@@ -57,7 +57,7 @@ public class ComputationLogicForCountingPathsTest {
 
     @Test
     public void testCaseWhereThereIsJustOne() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(
+        SolverForCountingPaths logic = new SolverForCountingPaths(
                 new Graph("aa1"));
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(

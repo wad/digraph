@@ -47,4 +47,12 @@ public class EdgeTest {
                 () -> new Edge("abx"));
         assertTrue(e.getMessage().contains("Invalid weight"));
     }
+
+    @Test
+    public void testWithZeroWeight() {
+        RuntimeException e = Assertions.assertThrows(
+                RuntimeException.class,
+                () -> new Edge("ab0"));
+        assertTrue(e.getMessage().contains("zero"));
+    }
 }

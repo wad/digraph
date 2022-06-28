@@ -8,11 +8,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComputationLogicForSummingWeightsTest {
+public class SolverForSummingWeightsTest {
 
     @Test
     public void testCaseWithNoGraph() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -28,7 +28,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testCaseWithNoGraphAndNoNodesToVisit() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph(""));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testCaseWhereThereTheStartingNodeDoesNotExist() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testCaseWhereThereIsNoRoute() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,bc2"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testWithPreferringMinimumWeight() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -88,7 +88,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testWithPreferringMaximumWeight() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("ab1,ab9,bc9,bc1"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
@@ -105,7 +105,7 @@ public class ComputationLogicForSummingWeightsTest {
 
     @Test
     public void testWithTightLoop() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(
+        SolverForSummingWeights logic = new SolverForSummingWeights(
                 new Graph("aa5,aa8"));
 
         List<Node> nodesInVisitOrder = new ArrayList<>();

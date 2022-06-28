@@ -6,11 +6,11 @@ import org.wadhome.digraph.setup.Request;
 
 import static org.wadhome.digraph.setup.Argument.*;
 
-public abstract class ComputationLogic {
+public abstract class Solver {
 
     protected final Graph graph;
 
-    public ComputationLogic(Graph graph) {
+    public Solver(Graph graph) {
         this.graph = graph;
     }
 
@@ -23,29 +23,29 @@ public abstract class ComputationLogic {
                 graph.showAll();
                 return Answer.noAnswerExpected();
             case ComputeTotalWeightOfSpecificRoutePreferringLessWeight:
-                return new ComputationLogicForSummingWeights(graph)
+                return new SolverForSummingWeights(graph)
                         .computeTotalWeightOfSpecificRoute(
                                 argumentValues.getValueAsListOfNodes(ListOfNodes),
                                 true);
             case ComputeTotalWeightOfSpecificRoutePreferringMoreWeight:
-                return new ComputationLogicForSummingWeights(graph)
+                return new SolverForSummingWeights(graph)
                         .computeTotalWeightOfSpecificRoute(
                                 argumentValues.getValueAsListOfNodes(ListOfNodes),
                                 false);
             case ComputeNumPathsBetweenTwoNodesWithLimitOfVisitedNodes:
-                return new ComputationLogicForCountingPaths(graph)
+                return new SolverForCountingPaths(graph)
                         .computeNumPathsLimitedByVisitingNodes(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName),
                                 argumentValues.getValueAsInt(MaxNumNodesVisited));
             case ComputeNumPathsBetweenTwoNodesWithLimitOfTotalWeight:
-                return new ComputationLogicForCountingPaths(graph)
+                return new SolverForCountingPaths(graph)
                         .computeNumPathsLimitedByTotalWeight(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName),
                                 argumentValues.getValueAsInt(MaxTotalWeight));
             case ComputeTotalWeightOfPathBetweenTwoNodesWithLeastTotalWeight:
-                return new ComputationLogicForFindingOptimumPath(graph)
+                return new SolverForFindingOptimumPath(graph)
                         .computeRouteWithLeastTotalWeight(
                                 argumentValues.getValueAsNode(StartNodeName),
                                 argumentValues.getValueAsNode(EndNodeName));

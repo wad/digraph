@@ -10,9 +10,9 @@ import java.util.Set;
  * The logic in this class is around computing the total weights of a specific route
  * through the graph.
  */
-public class ComputationLogicForSummingWeights extends ComputationLogic {
+public class SolverForSummingWeights extends Solver {
 
-    public ComputationLogicForSummingWeights(Graph graph) {
+    public SolverForSummingWeights(Graph graph) {
         super(graph);
     }
 

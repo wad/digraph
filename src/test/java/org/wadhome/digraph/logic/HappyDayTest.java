@@ -8,29 +8,28 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DigraphExperimentTest {
+public class HappyDayTest {
 
     static final String SAMPLE_DATA = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
     Graph graph = new Graph(SAMPLE_DATA);
 
     @Test
     public void testComputeTotalWeightOfSpecificRoute() {
-        ComputationLogicForSummingWeights logic = new ComputationLogicForSummingWeights(graph);
+        SolverForSummingWeights logic = new SolverForSummingWeights(graph);
 
         List<Node> nodesInVisitOrder = new ArrayList<>();
         nodesInVisitOrder.add(new Node("A"));
         nodesInVisitOrder.add(new Node("B"));
         nodesInVisitOrder.add(new Node("C"));
-        assertEquals(
-                9,
-                logic.computeTotalWeightOfSpecificRoute(
-                        nodesInVisitOrder,
-                        true).getNumericResult());
+        Answer answer = logic.computeTotalWeightOfSpecificRoute(
+                nodesInVisitOrder,
+                true);
+        assertEquals(9, answer.getNumericResult(), answer.getComment());
     }
 
     @Test
     public void testComputeNumPathsLimitedByVisitingNodes() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(graph);
+        SolverForCountingPaths logic = new SolverForCountingPaths(graph);
 
         Answer answer = logic.computeNumPathsLimitedByVisitingNodes(
                 new Node("c"),
@@ -41,20 +40,22 @@ public class DigraphExperimentTest {
 
     @Test
     public void testComputeNumPathsLimitedByTotalWeight() {
-        ComputationLogicForCountingPaths logic = new ComputationLogicForCountingPaths(graph);
+        SolverForCountingPaths logic = new SolverForCountingPaths(graph);
 
-        assertEquals(2, logic.computeNumPathsLimitedByTotalWeight(
+        Answer answer = logic.computeNumPathsLimitedByTotalWeight(
                 new Node("c"),
                 new Node("c"),
-                29).getNumericResult());
+                29);
+        assertEquals(2, answer.getNumericResult(), answer.getComment());
     }
 
     @Test
     public void testComputeRouteWithLeastTotalWeight() {
-        ComputationLogicForFindingOptimumPath logic = new ComputationLogicForFindingOptimumPath(graph);
+        SolverForFindingOptimumPath logic = new SolverForFindingOptimumPath(graph);
 
-        assertEquals(9, logic.computeRouteWithLeastTotalWeight(
+        Answer answer = logic.computeRouteWithLeastTotalWeight(
                 new Node("a"),
-                new Node("c")).getNumericResult());
+                new Node("c"));
+        assertEquals(9, answer.getNumericResult(), answer.getComment());
     }
 }

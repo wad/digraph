@@ -63,45 +63,35 @@ public class Answer implements Comparable<Answer> {
 
     @Override
     public int compareTo(Answer o) {
-
         if (o == null) {
             return 1;
         }
-
         if (this == o) {
             return 0;
         }
-
         if (noAnswerExpected && o.noAnswerExpected) {
             return 0;
         }
-
         if (noAnswerFound && o.noAnswerFound) {
             return 0;
         }
-
         if (numericResult == null && o.numericResult == null) {
             return 0;
         }
-
         if (numericResult == null) {
             return -1;
         }
-
         return numericResult.compareTo(o.numericResult);
     }
 
     @Override
     public String toString() {
-
         if (noAnswerExpected) {
             return null;
         }
-
         if (noAnswerFound) {
             return MESSAGE_FOR_NO_ANSWER_FOUND;
         }
-
         return String.valueOf(numericResult);
     }
 }

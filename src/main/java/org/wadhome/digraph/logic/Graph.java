@@ -31,14 +31,11 @@ public class Graph {
     }
 
     public void addWeightedEdge(Edge edge) {
-
         Node sourceNode = edge.getSourceNode();
         Node destinationNode = edge.getDestinationNode();
         int weight = edge.getWeight();
-
         nodesThatExist.add(sourceNode);
         nodesThatExist.add(destinationNode);
-
         Map<Node, Set<Integer>> weightsByDestinationNode = pathsByStartingNode.computeIfAbsent(
                 sourceNode,
                 k -> new HashMap<>());
@@ -48,6 +45,7 @@ public class Graph {
         weightsToThisDestination.add(weight);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted") // just makes more sense this way
     public boolean doesNodeExist(Node node) {
         return nodesThatExist.contains(node);
     }
@@ -62,7 +60,6 @@ public class Graph {
         List<Node> startingNodes = pathsByStartingNode.keySet().stream().sorted().toList();
         for (Node startingNode : startingNodes) {
             builder.append(startingNode.name()).append(":");
-
             boolean isFirstInList = true;
             Map<Node, Set<Integer>> pathsFromHere = pathsByStartingNode.get(startingNode);
             List<Node> destinationNodes = pathsFromHere.keySet().stream().sorted().toList();

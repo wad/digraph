@@ -1,6 +1,6 @@
 package org.wadhome.digraph;
 
-import org.wadhome.digraph.logic.ComputationLogic;
+import org.wadhome.digraph.logic.Solver;
 import org.wadhome.digraph.logic.Graph;
 import org.wadhome.digraph.setup.Answer;
 import org.wadhome.digraph.setup.ArgumentValues;
@@ -85,7 +85,7 @@ public class Application {
                         Arrays.asList(args).subList(numArgumentsToSkip, args.length));
 
                 show(request.getOutputMessage());
-                Answer answer = ComputationLogic.answerRequest(
+                Answer answer = Solver.answerRequest(
                         request,
                         new ArgumentValues(
                                 request,

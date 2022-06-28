@@ -23,6 +23,9 @@ public class Edge {
         try {
             destinationNode = new Node(String.valueOf(weightedEdgeAsString.charAt(1)));
             weight = Integer.parseInt(weightedEdgeAsString.substring(2));
+            if (weight <= 0) {
+                throw new RuntimeException("Not permitting weight of zero or less, as that allows for infinite solutions to some problems.");
+            }
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid weight found in weighted edge '" + weightedEdgeAsString + "'.", e);
         }

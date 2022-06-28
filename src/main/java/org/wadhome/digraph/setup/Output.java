@@ -12,11 +12,9 @@ public class Output {
     public static void show(
             String message,
             boolean includeInCache) {
-
         if (message == null) {
             return;
         }
-
         if (includeInCache) {
             outputCache.append(message);
             outputCache.append("\n");

@@ -6,9 +6,9 @@ import org.wadhome.digraph.setup.Answer;
  * The logic in this class is around computing the optimum path through the graph,
  * from a starting node to an ending node.
  */
-public class ComputationLogicForFindingOptimumPath extends ComputationLogic {
+public class SolverForFindingOptimumPath extends Solver {
 
-    public ComputationLogicForFindingOptimumPath(Graph graph) {
+    public SolverForFindingOptimumPath(Graph graph) {
         super(graph);
     }
 
