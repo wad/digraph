@@ -35,7 +35,8 @@ public class Application {
         show("Directed Graph Experiment");
 
         if (args.length == 0) {
-            showHelp();
+            show(HELP_MESSAGE_FOR_NON_INTERACTIVE_MODE);
+            Request.showMenu();
             return;
         }
 
@@ -65,7 +66,7 @@ public class Application {
         Request request = Request.determineByMenuChoice(menuChoice);
         if (request == null) {
             show("Invalid request menu choice received: '" + menuChoice + "'.");
-            showHelp();
+            show(HELP_MESSAGE_FOR_NON_INTERACTIVE_MODE);
             return;
         }
 
@@ -94,14 +95,5 @@ public class Application {
                 show(answer.toString(), true);
             }
         }
-    }
-
-    static void showHelp() {
-        show("""
-                Supply the destinationNodeWithWeight and name of an input file
-                which contains a comma-delimited list of source node name,
-                destination node name, and edge weight.
-                Sample content of the file: AB3,BC56,CA5""");
-        show(HELP_MESSAGE_FOR_NON_INTERACTIVE_MODE);
     }
 }

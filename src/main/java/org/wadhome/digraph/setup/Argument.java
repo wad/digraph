@@ -9,7 +9,7 @@ public enum Argument {
     // Or if someone just renamed an enum value, not expecting that to change the user experience?
     StartNodeName("StartNodeName"),
     EndNodeName("EndNodeName"),
-    ListOfNodes("ListOfNodes"),
+    ListOfNodes("ListOfNodes (like 'ABCD')"),
     MaxNumNodesVisited("MaxNumNodesVisited"),
     MaxTotalWeight("MaxTotalWeight");
 
