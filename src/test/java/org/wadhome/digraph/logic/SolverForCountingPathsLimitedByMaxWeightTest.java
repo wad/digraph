@@ -15,7 +15,7 @@ public class SolverForCountingPathsLimitedByMaxWeightTest {
         Answer answer = logic.computeNumPathsLimitedByTotalWeight(
                 new Node("a"),
                 new Node("b"),
-                13);
+                18);
         assertEquals(2, answer.getNumericResult(), "Got this: " + answer.getComment());
     }
 

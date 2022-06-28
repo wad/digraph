@@ -46,7 +46,7 @@ public class HappyDayTest {
                 new Node("c"),
                 new Node("c"),
                 29);
-        assertEquals(2, answer.getNumericResult(), answer.getComment());
+        assertEquals(7, answer.getNumericResult(), answer.getComment());
     }
 
     @Test

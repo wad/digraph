@@ -2,7 +2,6 @@ package org.wadhome.digraph.logic;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.wadhome.digraph.logic.Node;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,7 +18,7 @@ public class NodeTest {
         RuntimeException e = Assertions.assertThrows(
                 RuntimeException.class,
                 () -> new Node(null));
-        assertTrue(e.getMessage().contains("Invalid"));
+        assertTrue(e.getMessage().toLowerCase().contains("missing"));
     }
 
     @Test

@@ -132,7 +132,7 @@ public class SolverForCountingPaths extends Solver {
                 int weightThatWouldBeRemaining = maxTotalWeightRemaining - weight;
 
                 // Go wide, for each connected node, make a recursive call.
-                findAllPathsToDestinationFromThisNodeUpToMaxNodesVisited(
+                findAllPathsToDestinationFromThisNodeNotExceedingMaxWeight(
                         potentialNextNode,
                         destinationNode,
                         pathsFound,
